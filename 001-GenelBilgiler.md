@@ -24,6 +24,19 @@ görebilmesi, veriler üzerinde işlem yapabilmeleri gibi ayarlar.
 * Veri bağımsızlığı (Data Independence) sağlanır. Veritabanının fiziksel yapısı kullanıcılardan gizlenir. Çeşitli programlama dilleri ile bağlanılarak veriler
 üzerinde işlemler yapılabilmesine imkan verilir.
 
+## Veri Modelleri/Data Model
+Veritabanlarının temel görevi, istenilen bilgileri saklamak olmasına rağmen yapısal olarak farklılıklar içermektedir. Verilerin depolanması, işlenmesi,
+veriler arasındaki ilişkilerin kurulması gibi yapısal detaylar Veri Modeli olarak isimlendirilir. Her VTYS, verilerin mantıksal olarak düzenlenmesi için bir
+veri modeli kullanır. 
+
+### İlişkisel Veri Modeli (Relational Data Model)
+Günümüzde en yaygın kullanılan veri modelidir. Ortak özelliğe sahip veriler tablolar aracılığı ile tutulurlar. Tablolar satır ve sütunlardan oluşur. 
+Veriler ve ilişkiler tablolar üzerinde tanımlanır ve tüm bilgiler görülebilecek şekildedir. İlişkiler kurulurken birincil anahtar ve yabancıl anahtarlar kullanılır.
+
+
+
+
+
 
 
 
