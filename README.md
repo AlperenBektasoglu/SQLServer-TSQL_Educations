@@ -1,2 +1,4 @@
-# SQLServer-T-SQLEducation
-SQL Server ve T-SQL Eğitimleri
+# SQLServer-T-SQLEducations
+ENG: SQL Server And T-SQL Educations
+
+TR: SQL Server ve T-SQL Eğitimleri
