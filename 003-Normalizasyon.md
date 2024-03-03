@@ -1,4 +1,4 @@
-![image](https://github.com/AlperenBektasoglu/SQLServer-TSQL_Educations/assets/109978948/18bfafd6-f85b-463a-9dd3-9b3e038bb6e9)# Normalizasyon
+# Normalizasyon
 
 * Normalizasyon, Veritabanının tasarım aşamasında veri tekrarını, veri kaybını veya veri yetersizliğini önlemek için gerçekleştirilen işlemlerdir. 
 * Tabloların oluşturulması, tablolar arasında artıklığı ve tutarsızlığı ortadan kaldırma normalizasyonun temel amacıdır. 
