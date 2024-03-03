@@ -17,9 +17,18 @@
 ## Normalizasyon Kuralları
 
 1. Birinci Normal Form (1NF)
+ 
 ![Alternatif Metin](Assets/Screenshot11.png)
 
 2. İkinci Normal Form (2NF)
+
+* Bir tablo içinde tanımlı ve anahtar olmayan her sütun, birincil anahtar olarak tanımlı anahtar sütuna bağımlı olmalıdır. Anahtar sütunun ihtiyaç duyduğu bilgileri içermelidir.
+* Anahtar sütun, birden fazla sütunun birleşiminden oluşuyorsa tabloda yer alacak veriler iki sütuna da bağımlı olmalıdır. Tek sütuna bağımlı ise ayrı bir tabloda tutulmalıdır. 
+* Birincil anahtar birden fazla alanda yazılamaz. Problemi çözmek için tabloyu gerekli tablolara ayırırız.
+
+![Alternatif Metin](Assets/Screenshot12.png)
+
+
 
 
 
