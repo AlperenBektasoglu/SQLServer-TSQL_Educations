@@ -40,7 +40,8 @@
 ![Alternatif Metin](Assets/Screenshot13.png)
 ![Alternatif Metin](Assets/Screenshot14.png)
 
-
+4. Boyce-Code Normal Form(BCNF - 3.5NF)
+Eğer bir tablo 3NF kuralına uygunsa ve her bir belirleyici aday anahtar ise tablo BCNF kuralına uygundur.
 
 
 
