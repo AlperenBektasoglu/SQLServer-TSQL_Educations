@@ -44,6 +44,14 @@
 
 Eğer bir tablo 3NF kuralına uygunsa ve her bir belirleyici aday anahtar ise tablo BCNF kuralına uygundur.
 
+5. Dördüncü Normal Form (4NF)
+
+* Veri Tabanı 3NF olmalıdır,
+* Çok-değerli bağımlılıkları (Multli-Valued dependency) olmamalıdır.
+
+Çok-değerli bağımlılıkları (Multli-Valued dependency): Şayet herhangi bir kolon (örneğin X olsun), aynı kalmak şartıyla, ikinci bir kolondaki (örneğin Y olsun) veriler değişiyorsa, 
+bu durumda çok değerli bağımlılık vardır diyebiliriz.
+
 
 
 
