@@ -1,4 +1,4 @@
-# Normalizasyon
+![image](https://github.com/AlperenBektasoglu/SQLServer-TSQL_Educations/assets/109978948/18bfafd6-f85b-463a-9dd3-9b3e038bb6e9)# Normalizasyon
 
 * Normalizasyon, Veritabanının tasarım aşamasında veri tekrarını, veri kaybını veya veri yetersizliğini önlemek için gerçekleştirilen işlemlerdir. 
 * Tabloların oluşturulması, tablolar arasında artıklığı ve tutarsızlığı ortadan kaldırma normalizasyonun temel amacıdır. 
@@ -27,6 +27,13 @@
 * Birincil anahtar birden fazla alanda yazılamaz. Problemi çözmek için tabloyu gerekli tablolara ayırırız.
 
 ![Alternatif Metin](Assets/Screenshot12.png)
+
+3. Üçüncü Normal Form (3NF)
+
+* Bir tabloda anahtar olmadığı halde bir başka sütunu referans olarak belli eden sütunlar tablolara ayrıştırılmalıdır.
+
+![Alternatif Metin](Assets/Screenshot13.png)
+![Alternatif Metin](Assets/Screenshot14.png)
 
 
 
