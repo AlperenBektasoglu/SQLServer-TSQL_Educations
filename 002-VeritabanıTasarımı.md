@@ -8,8 +8,15 @@
 ![Alternatif Metin](Assets/Screenshot3.png)
 ![Alternatif Metin](Assets/Screenshot4.png)
 ![Alternatif Metin](Assets/Screenshot5.png)
+![Alternatif Metin](Assets/Screenshot9.png)
 
-## İlişki Türleri
+### Recursive İlişki
+İlişkiler çoğunlukla farklı varlık kümeleri ile oluşturulur. Ancak bazı durumlarda tek bir varlık kümesi kendi ile ilişki kurabilir. 
+Örneğin bir kişi hem personel hem yönetici olabilir. Yani birden fazla kişi bir kişinin yönetiminde olabilir ve bir kişi birden fazla kişiyi yönetir. 
+
+![Alternatif Metin](Assets/Screenshot10.png)
+
+### İlişki Türleri
 * 1-1 İlişki (Bire-Bir)
 İki kayıt kümesinden birindeki bir kaydın diğer tarafta sadece bir kayıtla eşleşmesi durumudur. 
 Örneğin bir erkeğin tek bir kadınla evli olması gibi. Tablolar oluşturulurken bir tablonun birincil anahtarı,
