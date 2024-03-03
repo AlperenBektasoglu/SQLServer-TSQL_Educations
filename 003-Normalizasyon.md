@@ -34,6 +34,7 @@
 
 3. Üçüncü Normal Form (3NF)
 
+* 1NF ve 2NF kurallarının uygulanmış olması beklenir.
 * Anahtar olmayan sütunlar ya başka bir tablonun birincil anahtarını (PK) referans göstermeli (FK “ikincil anahtar”) ya da aynı tabloda ki diğer alanlar ile doğrudan ilişkili olmalıdır.
 
 ![Alternatif Metin](Assets/Screenshot13.png)
