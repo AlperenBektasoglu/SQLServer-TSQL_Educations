@@ -26,15 +26,15 @@
 
 2. İkinci Normal Form (2NF)
 
-* Bir tablo içinde tanımlı ve anahtar olmayan her sütun, birincil anahtar olarak tanımlı anahtar sütuna bağımlı olmalıdır. Anahtar sütunun ihtiyaç duyduğu bilgileri içermelidir.
-* Anahtar sütun, birden fazla sütunun birleşiminden oluşuyorsa tabloda yer alacak veriler iki sütuna da bağımlı olmalıdır. Tek sütuna bağımlı ise ayrı bir tabloda tutulmalıdır. 
-* Birincil anahtar birden fazla alanda yazılamaz. Problemi çözmek için tabloyu gerekli tablolara ayırırız.
+* 1NF kuralının uygulanmış olması beklenir.
+* Bir tablo içinde tanımlı ve anahtar olmayan her sütun, birincil anahtar olarak tanımlı anahtar sütuna bağımlı olmalıdır.
+* Anahtar sütun, birden fazla sütunun birleşiminden oluşuyorsa tabloda yer alacak veriler iki sütuna da bağımlı olmalıdır. Tek sütuna bağımlı ise ayrı bir tabloda tutulmalıdır.
 
 ![Alternatif Metin](Assets/Screenshot12.png)
 
 3. Üçüncü Normal Form (3NF)
 
-* Bir tabloda anahtar olmadığı halde bir başka sütunu referans olarak belli eden sütunlar tablolara ayrıştırılmalıdır.
+* Anahtar olmayan sütunlar ya başka bir tablonun birincil anahtarını (PK) referans göstermeli (FK “ikincil anahtar”) ya da aynı tabloda ki diğer alanlar ile doğrudan ilişkili olmalıdır.
 
 ![Alternatif Metin](Assets/Screenshot13.png)
 ![Alternatif Metin](Assets/Screenshot14.png)
