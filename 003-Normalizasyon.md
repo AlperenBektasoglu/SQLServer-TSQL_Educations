@@ -24,7 +24,7 @@
  
 ![Alternatif Metin](Assets/Screenshot11.png)
 
-2. İkinci Normal Form (2NF)
+1. İkinci Normal Form (2NF)
 
 * 1NF kuralının uygulanmış olması beklenir.
 * Bir tablo içinde tanımlı ve anahtar olmayan her sütun, birincil anahtar olarak tanımlı anahtar sütuna bağımlı olmalıdır.
@@ -32,7 +32,7 @@
 
 ![Alternatif Metin](Assets/Screenshot12.png)
 
-3. Üçüncü Normal Form (3NF)
+1. Üçüncü Normal Form (3NF)
 
 * 1NF ve 2NF kurallarının uygulanmış olması beklenir.
 * Anahtar olmayan sütunlar ya başka bir tablonun birincil anahtarını (PK) referans göstermeli (FK “ikincil anahtar”) ya da aynı tabloda ki diğer alanlar ile doğrudan ilişkili olmalıdır.
@@ -40,8 +40,13 @@
 ![Alternatif Metin](Assets/Screenshot13.png)
 ![Alternatif Metin](Assets/Screenshot14.png)
 
-4. Boyce-Code Normal Form(BCNF - 3.5NF)
+1. Boyce-Code Normal Form(BCNF - 3.5NF)
+
 Eğer bir tablo 3NF kuralına uygunsa ve her bir belirleyici aday anahtar ise tablo BCNF kuralına uygundur.
+
+
+
+
 
 
 
