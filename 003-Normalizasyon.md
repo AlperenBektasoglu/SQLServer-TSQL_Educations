@@ -17,6 +17,10 @@
 ## Normalizasyon Kuralları
 
 1. Birinci Normal Form (1NF)
+
+* Bir alan içerisindeki bilgi özel karakterlere ayrılarak tutulmamalıdır.
+* Birden fazla bilgi tek bir sütunda olamaz. (Ad Soyad için tek bir sütun oluşturmaktansa Ad için ayrı Soyad için ayrı sütun oluşturulmalıdır örneği verilebilir)
+* Tekrarlanan sütun yapıları olmalıdır.
  
 ![Alternatif Metin](Assets/Screenshot11.png)
 
