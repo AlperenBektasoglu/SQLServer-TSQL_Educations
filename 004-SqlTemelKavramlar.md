@@ -54,6 +54,10 @@ USE Northwind
 * smalldatetime -- Date -- 1 Ocak 1900 – 6 Haziran 2079. 1 dakikalık doğruluk hassasiyeti vardır.
 * date -- Date --	1 Ocak 0001 – 31 Aralık 9999. Sadece tarih içerir, saati saklamaz.
 
+### Unicode Nedir? Unicode ile ASCII Farkları Nelerdir? 
+Unicode’un geliştirilmesinin arında yatan temel neden ASCII (American Standart Code for Information Interchange) karakter kodlamasının daha gelişmiş ve stratejik bir sürümünün oluşturulabilmesidir. ASCII karakterler sadece İngilizce üzerinde etkili olurken, Unicode tamamen evrenseldir. Unicode’un farklı sürümleri sayesinde İbranice ve Arapça gibi kompleks diller başta olmak üzere Çince gibi karmaşık diller kolayca dijital ortamlara aktarılabilmektedir. Yalnızca diller değil, Unicode kodlaması sayesinde karmaşık semboller ve karakterler kolayca meydana getirilebilirler. Yapısal açıdan bilgisayarlar sayılar yardımıyla çalışırlar. Her karakter için hafızlarında bir sayı tutar ve bu sayı yardımıyla karakter, rakam veya sembolün oluşturulmasını sağlarlar.
+
+
 
 
 
