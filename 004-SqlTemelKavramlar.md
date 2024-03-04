@@ -37,3 +37,27 @@ USE Northwind
 * İkincil veri dosyaları: ".ndf" uzantılıdır. Birincil dosya haricindeki bütün veri dosyalarına ikincil veri dosyaları denir. Bazı veritabanlarında hiç olmayabildiği gibi bazı veritabanlarında birden fazla da olabilir.  İkincil veri dosyasını, birincil veri dosyasının depolandığından farklı bir fiziksel sürücüde depolamak da mümkündür. Bu performans anlamında çok ciddi avantajlar sağlayabilir. Örneğin en sık yazılan tablolar bir dosyada saklanır ve nispeten daha az yazılan tablolar başka bir dosyada saklanabilir.
 
 * Log Dosyaları: ".ldf" uzantılıdır. Bir veritabanında birden fazla olabilir ama en az 1 tane olmak zorundadır. Log dosyalarında günlük bilgiler (verilerdeki değişiklik işlemleri ile ilgili transaction logları vs.)tutulur. Bu bilgiler daha sonra veritabanını kurtarmak için kullanılabilir.
+
+## Sıklıkla Kullanılan Veri Tipleri
+
+* char(n) -- String -- Uzunluğu değişmeyen sabit verileri saklar.Eğer n değeri 10 ise, daha kısa uzunlukta değer girilince kalan boşluğu kendi tamamlar ve öyle saklar.
+* nchar -- String -- Sabit uzunlukta Unicode karakterleri saklar. Char tipinden farkı çoklu dil ve Unicode desteği olmasıdır. En fazla 4000 karakter.
+* varchar(n) -- String --	Değişebilir uzunlukta verileri saklar. En fazla 8,000 karakter alır. 
+* nvarchar -- String -- Değişebilir uzunlukta verileri saklar. varchar tipinden farkı çoklu dil ve Unicode desteği olmasıdır. En fazla 4000 karakter.
+* text -- String -- Değişebilir uzunlukta karakterleri saklar. En fazla 2GB metin içerir.
+* bit -- Boolean -- 0, 1 ve null değerini saklar.
+* tinyint -- Number -- 0 ile 255 arasında değerleri saklar.
+* smallint --	Number -- -32,768 ile 32,767 arasında değerleri saklar.
+* int -- Number -- -2,147,483,648 ile 2,147,483,647 arasında değerleri saklar.
+* bigint -- Number --	-9,223,372,036,854,775,808 ile 9,223,372,036,854,775,807 arasında değerleri saklar.
+* datetime -- Date --	1 Ocak 1753 – 31 Aralık 9999. 3.33 milisaniye doğruluk hassasiyeti vardır.
+* smalldatetime -- Date -- 1 Ocak 1900 – 6 Haziran 2079. 1 dakikalık doğruluk hassasiyeti vardır.
+* date -- Date --	1 Ocak 0001 – 31 Aralık 9999. Sadece tarih içerir, saati saklamaz.
+
+
+
+
+
+
+
+
