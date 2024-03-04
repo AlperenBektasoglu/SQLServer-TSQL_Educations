@@ -26,6 +26,16 @@ LIKE Metin Karşılaştırma Operatörü
 
 **Not:** AND operatörü OR operatörüne göre daha önceliklidir.
 
+## Aritmetiksel Operatörler
+
+```sql
+%   Mod alma
+*   Çarpma
+/   Bölme
++   Toplama
+-   Çıkarma
+```
+
 
 
   
