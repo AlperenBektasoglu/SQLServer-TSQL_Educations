@@ -133,13 +133,69 @@ CREATE TABLE Erkekler
 )
 ```
 
+## Constraint Nasıl Silinir?
 
+```sql
+ALTER TABLE Erkekler
+DROP CONSTRAINT BayanID_ForeignKeyConstraint
+```
 
+## Cacade Komutu
 
+Bu komut ile ana tablodaki(Primary Key - Foreign Key ilişkisinde PK'nın bulunduğu tablo) kayıt silindiğinde yada güncellendiğinde, ilişkili tablodaki karşılığıda otomatik olarak silinir veya güncellenir. 
 
+```sql
+ALTER TABLE Erkekler
+ADD CONSTRAINT BayanID_ForeignKeyConstraint FOREIGN KEY (BayanID) REFERENCES Bayanlar(BayanID)
+ON DELETE CASCADE -- Silme işleminde diğer tablodaki kayıtta silinir.
+ON UPDATE CASCADE -- Güncelleme işleminde diğer tablodaki kayıtta güncellenir.
+```
 
+## Set Default Komutu
 
+Ana tablodaki(Primary Key - Foreign Key ilişkisinde PK'nın bulunduğu tablo) kayıt silindiğinde yada güncellendiğinde, ilişkili tablodaki karşılığına o kolonun default değeri basılır. Bu default değer, bizim ilişkili tabloda(FK'nın olduğu tablo) oluşturduğumuz default constraint'tir. 
 
+**Not:** Default olan değer ana tabloda olan bir değer olmalıdır. 
 
+```sql
+ALTER TABLE Erkekler
+ADD CONSTRAINT SetDefaultConstraint DEFAULT 1 FOR BayanID   -- 1 değeri ana tabloda olmak zorundadır.
 
+ALTER TABLE Erkekler
+ADD CONSTRAINT BayanID_ForeignKeyConstraint FOREIGN KEY (BayanID) REFERENCES Bayanlar(BayanID)
+ON DELETE SET DEFAULT
+ON UPDATE SET DEFAULT
+```
 
+## Create Komutu içerisinde Constraint'lerin Kullanılması
+
+```sql
+CREATE TABLE Dersler
+(
+DersKodu CHAR(10) PRIMARY KEY
+)
+
+CREATE TABLE Ogrenci
+(
+OgrNo INT PRIMARY KEY IDENTITY(1,1),
+
+-- Unique tanımı için 1. Kullanım
+OgrKimlikNo1 INT NOT NULL UNIQUE,
+
+-- Unique tanımı için 2. Kullanım
+OgrKimlikNo2 INT CONSTRAINT OgrKimlikNo2Const UNIQUE (OgrKimlikNo2),
+
+DersKodu CHAR(10) FOREIGN KEY REFERENCES Dersler(DersKodu) ON DELETE CASCADE ON UPDATE CASCADE
+)
+
+CREATE TABLE Personeller
+(
+PerSıraNo INT PRIMARY KEY,    
+PerNo SMALLINT IDENTITY(1,10),
+DogumYeri VARCHAR(15) CONSTRAINT DogumYeri_DefaultConstraint DEFAULT ('İstanbul'),
+Departman CHAR(3) CONSTRAINT Departman_CheckConstraint CHECK ( Departman IN ('MUH','ARG','SAT')), -- NOT: Departman kolonuna 3 kelimeden biri yazılırsa işlem yap komutu
+Boy FLOAT CONSTRAINT Boy_CheckConstraint CHECK (boy>0 and boy<250),
+Kilo FLOAT NOT NULL,
+DogumTarihi SMALLDATETIME CONSTRAINT DogumTarihi_DefaultConstraint DEFAULT (GETDATE()) CONSTRAINT DogumTarihi__CheckConstraint CHECK (DogumTarihi<=GETDATE())
+)
+```
