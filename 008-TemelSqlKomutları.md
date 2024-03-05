@@ -180,6 +180,8 @@ SELECT * FROM Personeller WHERE adi LIKE '[*a-k*]%'
 SELECT * FROM Personeller WHERE adi LIKE '[^an]%'
 ```
 
+**Not:** Like koşulunun içerisindeki ifade büyük küçük harfe duyarlı değildir. Dolayısı ile '%Alperen' ile '%ALPEREN%' aynı sonucu getirecektir.
+
 ###  Like Sorgusunda Escape(Kaçış) Karakteri
 
 Like sorgularında kullandığımız _ , %  gibi özel ifadeler verilerimiz içerisinde geçiyorsa bu problemi iki şekilde çözeriz:
