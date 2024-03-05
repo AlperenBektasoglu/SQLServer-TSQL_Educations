@@ -1,0 +1,7 @@
+# Fonksiyonlar
+
+## Aggregate Fonksiyonları
+
+```sql
+
+```
