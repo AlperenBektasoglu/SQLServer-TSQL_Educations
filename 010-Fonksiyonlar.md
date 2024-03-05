@@ -60,6 +60,18 @@ SELECT 'Alperen', CHARINDEX('l', 'Alperen') -- Alperen | 2
 SELECT Adi , CHARINDEX('a', Adi) FROM Personeller
 ```
 
+Karmaşık bir örnek üzerinde öğrendiklerimizi kullanalım:
+
+```sql
+-- Müşteriler tablosunda MusteriAdi kolonundan sadece soyadlarını çekelim.
+SELECT MusteriAdi , SUBSTRING(MusteriAdi, CHARINDEX(' ',MusteriAdi), LEN(MusteriAdi)) FROM Musteriler
+SELECT MusteriAdi , SUBSTRING(MusteriAdi, CHARINDEX(' ',MusteriAdi), LEN(MusteriAdi)- CHARINDEX(' ',MusteriAdi) +1) FROM Musteriler
+
+-- LEN(MusteriAdi)  Maria Anders --> 12
+-- CHARINDEX(' ',MusteriAdi) Boşluk karakteri konumu --> 6
+-- LEN(MusteriAdi)- CHARINDEX(' ',MusteriAdi) +1
+-- 12-6+1 = 7
+```
 
 
 
