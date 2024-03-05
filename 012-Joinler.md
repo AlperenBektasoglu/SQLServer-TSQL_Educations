@@ -214,11 +214,66 @@ USE Northwind
 SELECT * FROM Urunler WHERE KategoriID = 1 INTERSECT SELECT * FROM Urunler WHERE TedarikciID = 1
 ```
 
+## Except Komutu
 
+Except komutu iki farklı sql sorgusundan birinin sonuç kümesinde olup diğerinin sonuç kümesinde olmayan kayıtları listeler. Örneğin A ve B adında iki farklı küme düşünelim. Except komutu A kümesinde bulunup B bulunmayan veyahut B kümesinde bulunup A da bulunmaya kayıtları listeleyecektir. İki tablodaki bütün kolonlar except komutu ile kıyaslanabilmesi için iki tablonunda kolon isimlerinin, kolon sayılarının ve kolon veri tiplerinin aynı olması gerekir.
 
+```sql
+USE Db_Education
 
+Select Ad From tablo1 -- tablo1 de olup tablo2 de olmayan
+Except
+Select Ad From tablo2
 
+Select Ad From tablo2 -- tablo2 de olup tablo1 de olmayan
+Except
+Select Ad From tablo1
+```
 
+## Union Komutu
 
+Birden fazla select sorgusu sonucunu tek seferde alt alta göstermemizi sağlar. Joinler yan yana, Union alt alta tabloları birleştirir. Joinlerde belirli(ilişkisel) kolon üzerinden birleştirme yapılırken, union da böyle bir durum söz konusu değildir. Dikkat edilmesi gerekenler:
+1. Union sorgusu sonucu oluşan tablonun kolon isimleri, üstteki tablonun kolon isimlerinden oluşur.
+2. Üstteki sorgudan kaç kolon çekilmiş ise alttaki sorgudan da o kadar kolon çekilmek zorundadır.
+3. Üstteki sorgudan çekilen kolonların tipleri ile alttaki sorgudan çekilen kolonların tipleri uyumlu olmalıdır.
+4. Union, tekrarlı kayıtları getirmez.
 
- 
+```sql
+USE Northwind
+
+SELECT Adi, SoyAdi FROM Personeller
+SELECT MusteriAdi, MusteriUnvani FROM Musteriler
+
+SELECT Adi, SoyAdi FROM Personeller
+UNION
+SELECT MusteriAdi, MusteriUnvani FROM Musteriler
+
+-- İkiden fazla tabloyu alt alta birleştirme
+SELECT Adi, SoyAdi FROM Personeller
+UNION
+SELECT MusteriAdi, MusteriUnvani FROM Musteriler
+UNION
+SELECT SevkAdi, SevkAdresi FROM Satislar
+```
+
+**Not:** Union'da kullanılan tablolara kolon eklenebilir. Dikkat edilmesi geren nokta, yukarıdaki kurallar çerçevesinde eklenmelidir. Yani eklenecek kolon sayısı ve kolon tipleri aynı olmalıdır.
+
+```sql
+SELECT Adi, SoyAdi, 'Personel' FROM Personeller
+UNION
+SELECT MusteriAdi, MusteriUnvani, 'Müşteri' FROM Musteriler
+```
+
+## Union All Komutu
+
+Union tekrarlı kayıtları getirmez. Tekrarlı kayıtları getirmek için Union All komutu kullanılır. 
+
+```sql
+SELECT Adi, SoyAdi FROM Personeller
+UNION
+SELECT Adi, SoyAdi FROM Personeller
+
+SELECT Adi, SoyAdi FROM Personeller
+UNION ALL
+SELECT Adi, SoyAdi FROM Personeller
+```
