@@ -73,17 +73,79 @@ SELECT MusteriAdi , SUBSTRING(MusteriAdi, CHARINDEX(' ',MusteriAdi), LEN(Musteri
 -- 12-6+1 = 7
 ```
 
+## Sayısal Değer İşlemleri ve Sayısal Fonksiyonlar
 
+```sql
+SELECT 2+5
+SELECT 3-6
+SELECT 3*4
+SELECT 12/6
 
+-- PI = Pi sayısını verir.
+SELECT PI()
 
+-- SIN = Sinüs alır.
+SELECT SIN(90)
 
+-- COS = Cosinüs alır.
+SELECT COS(90)
 
+-- TAN = Tanjant alır.
+SELECT TAN(90)
 
+-- COT = Cotanjant alır.
+SELECT COT(90)
 
+-- POWER : Üs alır.
+SELECT POWER(2,3)
 
+-- SQRT : Karekök alır.
+SELECT SQRT(4) as DordunKarekökü
 
+-- ABS : Mutlak değer alır. (Absolute Value)
+SELECT ABS(-3)
 
+-- RAND : 0-1 arasında rastgele bir sayı üretir. (Random)
+SELECT RAND()
 
+-- FLOOR : Küsüratı atar.
+SELECT FLOOR(3.6) -- Çıktı: 3
+```
 
+## Tarih Fonksiyonları
 
+```sql
+-- GETDATE : Bugünün tarihini verir.
+SELECT GETDATE()
 
+-- DATEADD : Verilen tarihe verildiği kadar gün , ay ve yıl ekler.
+SELECT DATEADD(DAY, 100, GETDATE())
+SELECT DATEADD(MONTH, 100, GETDATE())
+SELECT DATEADD(YEAR, 100, '07.05.2000') -- Syntax = ay/gün/yıl  Viev = yıl/ay/gün
+
+-- DATEDIFF : İki tarih arasında günü , ayı veya yılı hesaplar.
+SELECT DATEDIFF(DAY,'07.05.2018',GETDATE())
+SELECT DATEDIFF(MONTH,'07.05.2018',GETDATE()) -- Çıktı: 68
+SELECT DATEDIFF(MONTH,GETDATE(),'07.05.2018') -- Çıktı: -68
+SELECT DATEDIFF(YEAR,'07.05.2018',GETDATE())
+
+-- DATEPART : Verilen tarihin haftanın ,ayın yahut yılın kaçıncı günü olduğunu hesaplar.
+SELECT
+GETDATE(),
+DATEPART(YEAR, GETDATE()) AS Yıl,
+DATEPART(MONTH, GETDATE()) AS Ay_1,
+DATEPART(DW,GETDATE()) AS Ay_2,
+DATEPART(DAY, GETDATE()) AS Gun,
+DATEPART(HOUR, GETDATE()) AS Saat,
+DATEPART(MINUTE, GETDATE()) AS Dakika,
+DATEPART(WEEK, GETDATE()) AS Hafta_Numarasi,
+DATEPART(QUARTER, GETDATE()) AS Çeyrek
+
+-- DATENAME : Verilen tarihte haftanın ,ayın yahut yılın ismini verir.
+SELECT
+GETDATE(),
+DATENAME(MONTH, GETDATE()) as Ay,
+DATENAME(WEEK, GETDATE()) as Hafta,
+DATENAME(WEEKDAY, GETDATE()) as Gun,
+DATENAME(MINUTE, GETDATE()) as Dakika
+```
