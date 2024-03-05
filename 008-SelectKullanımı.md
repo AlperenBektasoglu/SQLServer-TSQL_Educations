@@ -1,5 +1,5 @@
 
-# Temel Sql Komutları
+# Select Kullanımı
 
 ## Select Komutu
 
@@ -195,11 +195,6 @@ SELECT * FROM Personeller WHERE adi LIKE 'a_%' ESCAPE 'a'
 SELECT * FROM Personeller WHERE SoyAdi LIKE '^%%' ESCAPE '^'
 ```
 
-## Top Kullanımı
-SELECT TOP komutu, çağırılacak verilerin sayısını belirtmek için kullanılır. Tüm veritabanı sistemleri SELECT TOP komutunu desteklemez. MySQL sınırlı sayıda veri seçmek için LIMIT komutunu desteklerken, Oracle ROWNUM kullanır.
 
-```sql
-SELECT TOP 100 * FROM Personeller
-```
 
 
