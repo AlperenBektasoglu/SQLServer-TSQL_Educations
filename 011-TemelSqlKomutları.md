@@ -25,9 +25,9 @@ SELECT COUNT(DISTINCT Sehir) FROM personeller
 
 ## Group By Komutu
 
-Kolonlardaki satırların gruplanmasını sağlar.
+Genel Formül: SELECT Listelenecek_alanlar, fonksiyonlar FROM Tablo_adı WHERE şart veya şartlar GROUP BY Gruplandırılacak_alanlar
 
-Genel Formül: SELECT [kolonadı] , [aggregate_fonksiyonu] FROM [tabloadı] GROUP BY [kolonadı]
+Kolonlardaki satırların gruplanmasını sağlar. Group by en çok aggregate fonksiyonlarla(max, min, avg, count, sum) beraber kullanılır. Fonkisiyonlar kullanılmak zorunda değildir. Group by da "Listelenecek alanlar", "Gruplandırılıcak alanlar" içinde olmak zorundadır. Gruplandırılıcak alanların hepsi listelenmek zorunda değildir.
 
 ```sql
 -- Örnek 1
@@ -35,9 +35,12 @@ SELECT * FROM Urunler
 SELECT KategoriID , COUNT(*) FROM Urunler GROUP BY KategoriID
 
 -- Örnek 2
-SELECT KategoriID , TedarikciID , COUNT(*) FROM Urunler GROUP BY KategoriID , TedarikciID
+SELECT KategoriID FROM Urunler GROUP BY KategoriID
 
 -- Örnek 3
+SELECT KategoriID , TedarikciID , COUNT(*) FROM Urunler GROUP BY KategoriID , TedarikciID
+
+-- Örnek 4
 SELECT * FROM Satislar
 SELECT PersonelID , SUM(NakliyeUcreti) FROM Satislar GROUP BY PersonelID
 ```
