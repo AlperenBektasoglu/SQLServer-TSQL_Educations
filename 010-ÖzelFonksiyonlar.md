@@ -1,4 +1,4 @@
-# Fonksiyonlar
+# Özel Fonksiyonlar
 
 ## Aggregate Fonksiyonları
 
