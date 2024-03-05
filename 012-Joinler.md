@@ -55,12 +55,16 @@ SELECT UrunAdi FROM Urunler AS U INNER JOIN Kategoriler AS K ON U.KategoriID = K
 
 ### Inner Join İle Birden Fazla Tabloyu Birleştirme
 
+![Alternatif Metin](Assets/Screenshot15.png)
+
 ```sql
 -- 1997 Yılından sonra Nancy kişisinin satış yaptığı firmaların isimleri nelerdir? (Personeller, Satışlar, Musteriler)
 SELECT * FROM Personeller P INNER JOIN Satislar S ON P.PersonelID = S.PersonelID
 INNER JOIN Musteriler M ON S.MusteriID = M.MusteriID
 WHERE P.Adi = 'Nancy' AND YEAR(S.SatisTarihi) > 1997
 ```
+
+![Alternatif Metin](Assets/Screenshot16.png)
 
 ```sql
 -- Limited şirket olan tedarikçilerden alınmış seafood kategorisindeki ürünlerin toplam satış tutarı nedir? (Kategoriler, Urunler, Tedarikciler)
