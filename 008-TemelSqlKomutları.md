@@ -97,7 +97,7 @@ SELECT * FROM Personeller WHERE Sehir IN('Seattle' , 'Tacoma' , 'Kirkland')
 
 ```
 
-### Where Bloğunda Kullanılan Bağlaçaların İşlem Önceliği Sıralaması
+### Where Bloğunda Kullanılan Bağlaçların İşlem Önceliği Sıralaması
 
 Where Bloğundaki işlem öncelik sıralaması:
 1. Parantez içi işlemler
