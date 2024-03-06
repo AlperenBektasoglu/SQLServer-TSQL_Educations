@@ -114,6 +114,95 @@ ELSE
 	END
 ```
 
+## While Döngüsü
+
+```sql
+DECLARE @Sayac INT = 0
+WHILE @Sayac < 100
+    BEGIN
+	PRINT @Sayac
+	SET @Sayac = @Sayac + 1
+    END
+```
+
+## Break Komutu
+
+```sql
+-- Örnek 1
+DECLARE @Sayac INT = 0
+WHILE @Sayac < 100
+	BEGIN
+		PRINT @Sayac
+		SET @Sayac = @Sayac + 1
+		IF @Sayac > 50
+			BREAK
+	END
+
+-- Örnek 2
+DECLARE @Sayac INT = 0
+WHILE @Sayac < 100
+	BEGIN
+		PRINT @Sayac
+		SET @Sayac = @Sayac + 1
+		IF @Sayac > 50
+			BEGIN
+			PRINT 'Döngü BREAK komutu ile sonlandırıldı...'
+			BREAK
+			END
+	END
+```
+
+## Continue Komutu
+
+```sql
+DECLARE @Sayac INT = 0
+WHILE @Sayac < 100
+	BEGIN
+		SET @Sayac = @Sayac + 1
+		IF @Sayac % 5 = 0
+				CONTINUE  -- Dögünün başına atar.
+		PRINT @Sayac
+	END
+```
+
+## Case Kullanımı
+
+```sql
+-- Örnek 1
+SELECT Adi , SoyAdi ,KıdemBilgisi = 
+CASE
+WHEN BagliCalistigiKisi < 2 THEN 'Üst Kademe Çalışan'
+WHEN BagliCalistigiKisi >= 2 AND BagliCalistigiKisi < 5 THEN 'Orta Kademe Çalışan'
+WHEN BagliCalistigiKisi >= 5 THEN 'Alt Kademe Çalışan'
+ELSE
+'Kıdemi Bilinmeyen Çalışan'
+END
+FROM Personeller
+
+-- Örnek 2
+USE Db_Education
+
+CREATE TABLE PersonelBilgi
+(
+PerAd NVARCHAR(20),
+PerSoyad NVARCHAR(20),
+Dept NVARCHAR(20),
+Ucret INT
+)
+
+INSERT PersonelBilgi VALUES ('Alperen', 'Bektaşoğlu', 'IT', '5000')
+INSERT PersonelBilgi VALUES ('Gökçen', 'Bektaşoğlu', 'IT', '8000')
+INSERT PersonelBilgi VALUES ('Ezgi', 'Demir', 'IT', '2000')
+
+SELECT * FROM PersonelBilgi
+
+UPDATE PersonelBilgi SET Ucret = CASE
+WHEN Ucret < 5000 THEN Ucret + 750
+WHEN Ucret = 5000 THEN Ucret + 1000
+WHEN Ucret > 5000 THEN Ucret + 1250
+END
+```
+
 ## Exists / Not Exists Fonksiyonu
 
 * İfadeyi boolean bir değere döndürür.
@@ -150,6 +239,8 @@ SELECT * FROM Personeller WHERE PersonelID NOT IN (SELECT PersonelID FROM Satisl
 
 DELETE FROM Personeller WHERE Adi = 'Alperen'
 ```
+
+
 
 
 
