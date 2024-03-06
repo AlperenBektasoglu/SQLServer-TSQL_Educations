@@ -8,6 +8,13 @@ View, bir veya birden fazla tablodan değişik sorgularla çekilmekte olan bilgi
 4. Farklı ve karmaşık tablolarda tutulan verilerin tek ve sade bir şekilde görülmesi gerektiğinde view yapısı kullanılabilir.
 5. Kompleks sorguları basitleştirmek gerektiğinde kullanılabilir.
 
+View içerisinde yapılamayacak işlemler aşağıda verilmiştir: 
+1. İsimsiz bir kolon kullanılamaz. (sql aggregate fonksiyon kullanımından sonra kolon ismi boş gelir.)
+2. Stored procedure yapısı gibi, view içerisinde parametre gönderilemez.
+3. View yapısı içerisinde dml kodları (insert into, update, delete) kullanılamaz.
+4. View yapısı içerisinde, sadece select ile başlayan ifadeler kullanılabilir.
+5. View içerisinde order by (sıralama) fonksiyonu kullanılamaz.
+
 **Not:** View'ı oluşturan kod bloğunda order by, compute, compute by, into gibi ifadeler bulunamaz.
 
 ## View Oluşturma
