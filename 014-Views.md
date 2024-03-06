@@ -1,5 +1,5 @@
 
-# Views
+# Views (Sanal Tablolar)
 
 View, bir veya birden fazla tablodan değişik sorgularla çekilmekte olan bilgilerin oluşturduğu sanal sonuç tablolarıdır. View'ların kullanım amaçları aşağıda verilmiştir:
 1. Bir kullanıcının bir tablo içerisindeki herşeyi görmesinin istenmediği durumlarda kullanılır.
