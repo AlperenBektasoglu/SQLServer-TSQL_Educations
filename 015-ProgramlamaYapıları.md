@@ -257,6 +257,8 @@ SELECT * FROM @tabloTipiDegisken
 
 ## Try-Catch Yapısı
 
+![Alternatif Metin](Assets/Screenshot19.png)
+
 ```sql
 BEGIN TRY
     SELECT Islem = 255/0
