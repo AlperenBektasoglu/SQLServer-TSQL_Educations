@@ -2,6 +2,8 @@
 
 Sorgu içerisinde yazılan sorgulara alt sorgu denir.
 
+![Alternatif Metin](Assets/Screenshot17.png)
+
 ```sql
 -- Ücreti 3000 liranın altında olan personel numaralarının listelenmesi:
 SELECT Perno FROM Personel WHERE Ucret < 3000
@@ -27,6 +29,8 @@ SELECT Ad FROM Personel WHERE Ucret >ALL
 SELECT Ad FROM Personel WHERE Ucret >ANY
 ( SELECT  Ucret FROM  Personel WHERE Dept="MUH" )
 ```
+
+![Alternatif Metin](Assets/Screenshot18.png)
 
 ```sql
 -- Ali isimli müşterinin yapmış olduğu alışveriş kayıtlarının listelenmesi: 
