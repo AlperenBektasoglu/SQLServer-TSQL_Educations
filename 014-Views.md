@@ -90,7 +90,54 @@ AS
 SELECT Adi FROM Personeller
 ```
 
+## View’in Silinmesi
 
+```sql
+DROP VIEW OrnekView_6
+```
 
+## View’daki Tabloya Kayıt Ekleme / Güncelleme / Silme
 
+Viewler bünyelerinde veri tutmadıklarından dolayı ilgili değişiklikler doğrudan base tablo üzerinde gerçekleşirler. Bir view, veri gireceği base tablodaki identity, not null, constraint veya indekslere takılmamalıdır.
 
+```sql
+CREATE VIEW OrnekView_7
+AS
+SELECT Adi, SoyAdi, Unvan FROM Personeller
+
+INSERT OrnekView_7 VALUES('Alperen', 'Bektaşoğlu', 'DBM')
+
+UPDATE OrnekView_7 SET Unvan = 'Database Manager' WHERE Adi = 'Alperen'
+
+DELETE FROM OrnekView_7 WHERE Adi = 'Alperen'
+```
+
+## With Check Option Komutu
+
+Insert ve update komutlarında şarta uygunluğu test eder. Şartı belirleyen faktör view oluşturulurken koyulan where komutudur.
+
+```sql
+CREATE VIEW OrnekView_8
+AS
+SELECT Adi, SoyAdi FROM Personeller WHERE Adi LIKE 'a%'
+WITH CHECK OPTION
+
+SELECT * FROM OrnekView_8
+
+INSERT OrnekView_8 VALUES('Alperen','Bektaşoğlu')
+INSERT OrnekView_8 VALUES('Tuncel','Kurtiz')
+UPDATE OrnekView_8 SET Adi = 'Ezgi' WHERE SoyAdi = 'Bektaşoğlu'
+```
+
+## View’in Adını Değiştirme
+
+```sql
+-- 1. Yol
+Sp_rename 'OrnekView_8', 'OV8'
+
+-- 2. Yol
+EXEC Sp_rename 'OV8', 'OV_8'
+
+-- 3. Yol
+EXECUTE Sp_rename 'OV_8', 'OrnekView_8'
+```
