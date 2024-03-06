@@ -5,8 +5,8 @@ View, bir veya birden fazla tablodan değişik sorgularla çekilmekte olan bilgi
 
 1. Bir kullanıcının bir tablo içerisindeki herşeyi görmesinin istenmediği durumlarda kullanılır.
 2. Bir kullanıcının çok miktarda veri bulunduran bir tablo üzerinde sorgulama yapması yerine view yapısı kullanılabilir. Sorgu işlemlerini daha kolaylaştırmak/hızlandırmak için bu verilerin bir bölümü üzerinde çalışması istendiğinde kullanılır.
-4- Farklı ve karmaşık tablolarda tutulan verilerin tek ve sade bir şekilde görülmesi gerektiğinde view yapısı kullanılabilir.
-5- Kompleks sorguları basitleştirmek gerektiğinde kullanılabilir.
+4. Farklı ve karmaşık tablolarda tutulan verilerin tek ve sade bir şekilde görülmesi gerektiğinde view yapısı kullanılabilir.
+5. Kompleks sorguları basitleştirmek gerektiğinde kullanılabilir.
 
 **Not:** View'ı oluşturan kod bloğunda order by, compute, compute by, into gibi ifadeler bulunamaz.
 
