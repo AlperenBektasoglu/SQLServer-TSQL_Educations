@@ -2,7 +2,6 @@
 # Views
 
 View, bir veya birden fazla tablodan değişik sorgularla çekilmekte olan bilgilerin oluşturduğu sanal sonuç tablolarıdır. View'ların kullanım amaçları aşağıda verilmiştir:
-
 1. Bir kullanıcının bir tablo içerisindeki herşeyi görmesinin istenmediği durumlarda kullanılır.
 2. Bir kullanıcının çok miktarda veri bulunduran bir tablo üzerinde sorgulama yapması yerine view yapısı kullanılabilir. Sorgu işlemlerini daha kolaylaştırmak/hızlandırmak için bu verilerin bir bölümü üzerinde çalışması istendiğinde kullanılır.
 4. Farklı ve karmaşık tablolarda tutulan verilerin tek ve sade bir şekilde görülmesi gerektiğinde view yapısı kullanılabilir.
