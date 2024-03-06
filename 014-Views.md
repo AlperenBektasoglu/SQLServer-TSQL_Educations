@@ -13,8 +13,7 @@ View içerisinde yapılamayacak işlemler aşağıda verilmiştir:
 3. View yapısı içerisinde dml kodları (insert into, update, delete) kullanılamaz.
 4. View yapısı içerisinde, sadece select ile başlayan ifadeler kullanılabilir.
 5. View içerisinde order by (sıralama) fonksiyonu kullanılamaz.
-
-**Not:** View'ı oluşturan kod bloğunda order by, compute, compute by, into gibi ifadeler bulunamaz.
+6. View'ı oluşturan kod bloğunda order by, compute, compute by, into gibi ifadeler bulunamaz.
 
 ## View Oluşturma
 
