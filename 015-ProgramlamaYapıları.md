@@ -240,8 +240,44 @@ SELECT * FROM Personeller WHERE PersonelID NOT IN (SELECT PersonelID FROM Satisl
 DELETE FROM Personeller WHERE Adi = 'Alperen'
 ```
 
+## Tablo Tipi Değişkenler
 
+```sql
+USE Db_Education
 
+DECLARE @tabloTipiDegisken TABLE(
+	Numara TINYINT IDENTITY(1,1),
+	Isim VARCHAR(20)
+)
+INSERT INTO @tabloTipiDegisken VALUES ('Ali')
+INSERT INTO @tabloTipiDegisken VALUES ('Veli')
+
+SELECT * FROM @tabloTipiDegisken
+```
+
+## Try-Catch Yapısı
+
+```sql
+BEGIN TRY
+    SELECT Islem = 255/0
+END TRY
+BEGIN CATCH
+    SELECT [HataSatırı] = ERROR_LINE(),  -- Hatanın Oluştuğu Satır
+           [HataNumarasi] = ERROR_NUMBER(), -- Hata Numarası
+           [HataÖnemi] = ERROR_SEVERITY(), -- Hata Derecesi
+           [HataDurumu] = ERROR_STATE(), -- Hatanın Kod Değeri / Veri tabanı motoru durumu için dahili durum kodu
+           [HataMesajı] = ERROR_MESSAGE(), -- Hata Mesajı
+           [ProsedürIsmi] = ERROR_PROCEDURE() -- Eger hata bir stored procedure içinde olustu ise onun adını döndürür.
+END CATCH
+```
+
+ERROR_SEVERITY() fonksiyonunda hata dereceleri aşağıdaki gibidir:
+* 0 veya 10 : Kullanıcı veri girişinden kaynaklanan hatalar
+* 11-16 arası: Kullanıcının düzeltebileceği hatalar
+* 17 : Yetersiz kaynak hataları (Diskin dolu olması ya da tablonun salt okunur olması gibi)
+* 18 : Yazılımdan kaynaklanan hatalar
+* 19 : Constraintlere takılan hatalar
+* 20-25 arası: Kritik hatalar
 
 
 
