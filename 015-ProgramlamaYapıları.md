@@ -278,7 +278,7 @@ ERROR_SEVERITY() fonksiyonunda hata dereceleri aşağıdaki gibidir:
 * 11-16 arası: Kullanıcının düzeltebileceği hatalar
 * 17 : Yetersiz kaynak hataları (Diskin dolu olması ya da tablonun salt okunur olması gibi)
 * 18 : Yazılımdan kaynaklanan hatalar
-* 19 : Constraintlere takılan hatalar
+* 19 : Constraintlere takılan hatalar
 * 20-25 arası: Kritik hatalar
 
 
