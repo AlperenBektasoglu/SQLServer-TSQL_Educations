@@ -47,7 +47,7 @@ EXEC OrnekProcedure_3 10, 20, 30, @Ort OUT
 PRINT '@Ort değişkenindeki değer: ' + CAST(@Ort AS VARCHAR(9))
 
 -- Örnek 4
-CREATE PROC OrnekProcedure_4 (@sayi1 INT , @sayi2 INT , @sayi3 INT, @sayi4 INT , @sonuc1 INT OUT, @sonuc2 INT OUT)
+CREATE PROC OrnekProcedure_4 (@sayi1 INT, @sayi2 INT, @sayi3 INT, @sayi4 INT, @sonuc1 INT OUT, @sonuc2 INT OUT)
 AS
 SET @sonuc1 = (@sayi1 + @sayi2)
 SET @sonuc2 = (@sayi3 + @sayi4)
@@ -74,3 +74,56 @@ SELECT * FROM Personeller WHERE Sehir = @sehir
 EXECUTE OrnekProcedure_SehireGöreGetir_2
 EXECUTE OrnekProcedure_SehireGöreGetir_2 'London'
 ```
+
+## Alter Komutu İle Stored Procedure Yapısını Değiştirme
+
+```sql
+-- Örnek 1
+ALTER PROC OrnekProcedure_3 (@sayi1 INT , @sayi2 INT , @sonuc INT OUTPUT)
+AS
+SET @sonuc = @sayi1 + @sayi2 + 20
+PRINT 'Sonuç: ' + CAST(@sonuc AS VARCHAR(9))
+
+DECLARE @x INT
+EXEC OrnekProcedure_3 33, 5, @x OUTPUT
+PRINT '@x değişkenindeki değer: ' + CAST(@x AS VARCHAR(9))
+
+-- Örnek 2
+ALTER PROC OrnekProcedure_3 (@sayi1 INT , @sayi2 INT , @sayi3 INT, @sonuc INT OUTPUT)
+AS
+SET @sonuc = @sayi1 + @sayi2 + @sayi3
+PRINT 'Sonuç: ' + CAST(@sonuc AS VARCHAR(9))
+
+DECLARE @x INT
+EXEC OrnekProcedure_Topla 33, 5, 50, @x OUTPUT
+PRINT '@x değişkenindeki değer: ' + CAST(@x AS VARCHAR(9))
+```
+
+## Stored Procedure İle With Encryption Komutunun Kullanımı
+
+With encryption komutu kullanılarak yazılmış prosedürün içeriği şifrelenerek saklanır, kodu gösterilmez. Bununla birlikte Şifrelenmiş bir Stored Procedure, alter komutu ile güncellenirken her seferinde with encryption ifadesi kullanılmalıdır. Kullanılmazsa şifrelemeden vazgeçildiği şeklinde düşünülerek çalıştırılır.
+
+```sql
+CREATE PROCEDURE OrnekProcedure_UlkeyeGöreGetir (@ulke VARCHAR(15))
+WITH ENCRYPTION
+AS
+SELECT * FROM Personeller WHERE Ulke = @ulke
+
+EXEC OrnekProcedure_UlkeyeGöreGetir 'UK'
+```
+
+## Stored Procedure İle With Recompile Komutunun Kullanımı
+
+Stored Procedure(SP) ilk çalıştırıldığı zaman istatistikler göz önüne alınarak Query Optimizer tarafından en optimum sorgu planı(Query Plan) oluşturulur ve daha sonra kullanılmak üzere plan cache’e konulur. Aynı SP farklı bir zamanda tekrar çalıştırıldığında cache’deki plan’ın geçerliliği kontrol edilir ve eğer plan geçerli yani güncel ise tekrar query plan oluşturulmak için zaman harcanmayıp, plan cache’den çağırılır ve kullanılır. Query plan oluşturma işlemi bazı durumlarda çok fazla CPU kaynağı tükettiği için bu şekilde bir cache’lenme mekanizması kullanılır. Fakat bazı durumlarda cache’lenen plan güncelliğini yitirmiş olabilir. Örneğin SP içinde geçen bir tabloda, plan cache’lendikten sonra çok fazla data değişimi olduysa bu durumda cache’lenen plan güncelliğini yitirecektir. Ya da SP’nin içinde geçen tablolarda index ekleme, silme gibi DDL (Data Definition Language) değişiklikleri yapılırsa yine cache’lenen plan güncelliğini yitirmiş olacaktır. Böyle bir durumda SP’nin yeniden derlenip yeni bir query plan’ın oluşturulması gerekmektedir. İşte bu duruma Recompilation denilmektedir.
+
+
+
+
+
+
+
+
+
+
+
+
