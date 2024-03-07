@@ -110,6 +110,11 @@ SELECT RAND()
 
 -- FLOOR : Küsüratı atar.
 SELECT FLOOR(3.6) -- Çıktı: 3
+
+-- ROUND : Yuvarlama yapar.
+SELECT ROUND(3.4) -- Çıktı: 3
+SELECT ROUND(3.5) -- Çıktı: 4
+SELECT ROUND(3.6) -- Çıktı: 4
 ```
 
 ## Tarih Fonksiyonları
