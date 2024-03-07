@@ -104,6 +104,7 @@ PRINT '@x değişkenindeki değer: ' + CAST(@x AS VARCHAR(9))
 With encryption komutu kullanılarak yazılmış prosedürün içeriği şifrelenerek saklanır, kodu gösterilmez. Bununla birlikte Şifrelenmiş bir Stored Procedure, alter komutu ile güncellenirken her seferinde with encryption ifadesi kullanılmalıdır. Kullanılmazsa şifrelemeden vazgeçildiği şeklinde düşünülerek çalıştırılır.
 
 ```sql
+-- Örnek 1
 CREATE PROCEDURE OrnekProcedure_UlkeyeGöreGetir (@ulke VARCHAR(15))
 WITH ENCRYPTION
 AS
@@ -116,14 +117,70 @@ EXEC OrnekProcedure_UlkeyeGöreGetir 'UK'
 
 Stored Procedure(SP) ilk çalıştırıldığı zaman istatistikler göz önüne alınarak Query Optimizer tarafından en optimum sorgu planı(Query Plan) oluşturulur ve daha sonra kullanılmak üzere plan cache’e konulur. Aynı SP farklı bir zamanda tekrar çalıştırıldığında cache’deki plan’ın geçerliliği kontrol edilir ve eğer plan geçerli yani güncel ise tekrar query plan oluşturulmak için zaman harcanmayıp, plan cache’den çağırılır ve kullanılır. Query plan oluşturma işlemi bazı durumlarda çok fazla CPU kaynağı tükettiği için bu şekilde bir cache’lenme mekanizması kullanılır. Fakat bazı durumlarda cache’lenen plan güncelliğini yitirmiş olabilir. Örneğin SP içinde geçen bir tabloda, plan cache’lendikten sonra çok fazla data değişimi olduysa bu durumda cache’lenen plan güncelliğini yitirecektir. Ya da SP’nin içinde geçen tablolarda index ekleme, silme gibi DDL (Data Definition Language) değişiklikleri yapılırsa yine cache’lenen plan güncelliğini yitirmiş olacaktır. Böyle bir durumda SP’nin yeniden derlenip yeni bir query plan’ın oluşturulması gerekmektedir. İşte bu duruma Recompilation denilmektedir.
 
+```sql
+-- Örnek 1
+CREATE PROCEDURE OrnekProcedure_PersonelGetir
+WITH RECOMPILE -- Her çağrılmada yeniden düzenleniyor. (Compile ediliyor.)
+AS
+SELECT * FROM Personeller
 
+-- Örnek 2 ( With Recompile Komutunu Kaldırma)
+ALTER PROCEDURE OrnekProcedure_PersonelGetir
+AS
+SELECT * FROM Personeller
 
+-- Örnek 3
+ALTER PROCEDURE OrnekProcedure_PersonelGetir
+WITH RECOMPILE -- Her çağrılmada yeniden düzenleniyor.(compile ediliyor)
+AS
+SELECT * FROM Personeller WHERE Sehir = 'London'
+```
 
+## Stored Procedure İle Set Nocount On Komutunun Kullanımı
 
+Sql Server‘da her sorgu çalıştırdığımızda; sorgu sonucu, etkilenen satır sayısı ile birlikte sorguyu çalıştıran uygulamaya geri gönderilir. Bazı durumlarda bu bilgi işimize yarasa bile genellikle kullanmayız. Sql Server‘ın bu bilgiyi hesaplamasını ve uygulamaya geri göndermesini engelleyerek, çok ufakta olsa performastan kazanç sağlayabiliriz. Özetle bu komut ile Sql Server sadece ilgili sorgu için, etkilenen satır sayısını hesaplama işlemini yapmayacaktır. Yapmamız gereken, sorgudan önce aşağıdaki komutu çalıştırmak olacaktır;
 
+SET NOCOUNT ON 
 
+```sql
+-- Örnek 1
+INSERT Personeller(Adi, SoyAdi) VALUES('Alperen','Bektaşoğlu')
 
+SET NOCOUNT ON
+INSERT Personeller(Adi, SoyAdi) VALUES('Gökçen','Bektaşoğlu')
 
+SET NOCOUNT OFF
+INSERT Personeller(Adi, SoyAdi) VALUES('Gökçen','Bektaşoğlu')
 
+DELETE FROM Personeller WHERE Adi = 'Alperen' OR Adi = 'Gökçen'
 
+-- Örnek 2
+CREATE PROCEDURE OrnekProcedure_PersonelGetir_1
+AS
+SELECT * FROM Personeller
+
+EXEC OrnekProcedure_PersonelGetir_1
+
+CREATE PROCEDURE OrnekProcedure_PersonelGetir_2
+AS
+SET NOCOUNT ON
+SELECT * FROM Personeller
+
+EXEC OrnekProcedure_PersonelGetir_2
+
+-- Örnek 3
+ALTER PROCEDURE OrnekProcedure_PersonelGetir_1
+AS
+SET NOCOUNT ON
+SELECT * FROM Personeller
+
+EXEC OrnekProcedure_PersonelGetir_1
+```
+
+## Stored Procedure Silme
+
+```sql
+DROP PROC OrnekProcedure_1
+DROP PROCEDURE OrnekProcedure_1
+```
 
