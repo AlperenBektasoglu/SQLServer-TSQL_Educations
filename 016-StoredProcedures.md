@@ -10,6 +10,8 @@ Stored Procedure Çeşitleri:
 
 **Not:** Bir sp, CREATE DEFAULT, CREATE PROC, CREATE RULE, CREATE TRIGGER VE CREATE VIEW gibi kodları içeremez. Ancak view, fonksiyon, procedure, tablo gibi veritabanı sisteminde ki nesnelerden veri alabilir yada aktarabilir. 
 
+**Not:** BGIN-END bloklarını kullanmak isteğe bağlıdır.
+
 ## Stored Procedure Oluşturma
 
 ```sql
@@ -18,7 +20,9 @@ USE Northwind
 -- Örnek 1
 CREATE PROCEDURE OrnekProcedure_1
 AS
+BEGIN
 SELECT * FROM Personeller WHERE BagliCalistigiKisi < 5
+END
 
 EXEC OrnekProcedure_1
 EXECUTE OrnekProcedure_1
