@@ -90,7 +90,7 @@ DELETE FROM DenemePersoneller
 ```
 
 ## Truncate Komutu
-Truncate komutu tablo yapısını değiştirmeden, tablo içinde yer alan tüm verileri tek komutla silmenizi saðlar. Truncate komutunu kullandığımızda Primary Key(Birincil Anahtar) değeri, tıpkı tabloyu ilk oluþturmuşsunuz gibi 1'den başlayacaktır. Delete Table komutu ile de bir tablo içindeki verileri silebilirsiniz, fakat indeks deðerleri kaldığı yerden başlayacaktır. Örneğin silinmeden önce tblogrenci tablomuzda ogrenciID alanı en son 100 deðerini almış ise delete ile sildiğinizde 101'den başlayacak, truncate ile sildiðinizde 1'den başlayacaktır.
+Truncate komutu tablo yapısını değiştirmeden, tablo içinde yer alan tüm verileri tek komutla silmenizi saðlar. Truncate komutunu kullandığımızda Primary Key(Birincil Anahtar) değeri, tıpkı tabloyu ilk oluþturmuşsunuz gibi 1'den başlayacaktır. Delete Table komutu ile de bir tablo içindeki verileri silebilirsiniz, fakat indeks deðerleri kaldığı yerden başlayacaktır. Örneğin silinmeden önce tblogrenci tablomuzda ogrenciID alanı en son 100 deðerini almış ise delete ile sildiğinizde 101'den başlayacak, truncate ile sildiğinizde 1'den başlayacaktır.
 
 Kullanım Prototipi: TRUNCATE TABLE [TABLO_ADI]
 
