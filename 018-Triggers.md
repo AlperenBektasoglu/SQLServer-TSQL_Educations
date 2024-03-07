@@ -5,11 +5,16 @@ Triggerlar iki ye ayrılır:
 1. DDL Trigger
 2. DML Trigger
 
-## DDL 
+## DDL Trigger
+
+Create, alter ve drop işlemleri sonucunda devreye giren yapılardır. Bu işlemler sonucunda veya sürecinde devreye girerler. Triggerlar çalışma mantığı açısından da ikiye ayrılırlar.
+
+1. İşlem sonucunda çalışan triggerlar  -- AFTER/FOR
+2. İşlemin yerine çalışan triggerlar   -- INSTEAD OF 
 
 ## DML Trigger
 
-Bir tabloda Insert, Update ve Delete işlemleri gerçekleştirildiğinde devreye giren yapılardır. Bu işlemler sonucunda veya sürecinde devreye girerler.
+Bir tabloda insert, update ve delete işlemleri gerçekleştirildiğinde devreye giren yapılardır. Bu işlemler sonucunda veya sürecinde devreye girerler.
 
 Inserted Table: Eğer bir tabloda insert işlemi yapılıyor ise arka planda işlemler, ilk önce RAM'de oluşturulan inserted isimli bir tablo üzerinde yapılır. Eğer işlemde bir problem yoksa inserted tablosundaki veriler fiziksel tabloya Insert edilir. İşlem bittiği zaman RAM'de oluşturulan bu inserted tablosu silinir. Bu anlatılan insert komutunun çalışma prensibidir.
 
