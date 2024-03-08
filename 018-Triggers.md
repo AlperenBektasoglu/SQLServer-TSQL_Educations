@@ -13,12 +13,14 @@ Triggerlar çalışma mantığı açısından da ikiye ayrılırlar:
 
 Create, alter ve drop işlemleri sonucunda devreye giren yapılardır. Bu işlemler sonucunda veya sürecinde devreye girerler. 
 
-  -- CREATE TRIGGER [ Trigger Adı ]
-  -- ON DATABASE
-  -- AFTER/FOR drop_table, alter_table, create_function, create_procedure, drop_procedure ...
-  -- AS
-  -- [Çalışması İstenen Kodlar]  
-
+```sql
+-- Kullanım Protitipi:
+-- CREATE TRIGGER [ Trigger Adı ]
+-- ON DATABASE
+-- AFTER/FOR drop_table, alter_table, create_function, create_procedure, drop_procedure ...
+-- AS
+-- [Çalışması İstenen Kodlar] 
+```
 **Not:** INSTEAD OF yapısı DDL Triggerlarda kullanılmaz.
 
 **Not:** DDL Triggerlara ilgili veritabanının Programmability -> Databese Triggers klasöründen ulaşabilirsiniz.
@@ -64,11 +66,14 @@ Deleted Table: Eğer bir tabloda delete işlemi yapılıyor ise arka planda işl
 
 **Not:** Deleted ve inserted tabloları, ilgili sorgu sonucu oluştukları için o sorgunun kullandığı kolonlara da sahip olur. Böylece deleted ve inserted tablolarından select sorgusu yapmak mümkündür.
 
+```sql
+-- Kullanım Protitipi:
 -- CREATE TRIGGER [ Trigger Adı ]
 -- ON [ İşlem Yapılacak Tablo Adı ]
 -- AFTER/FOR INSERT, UPDATE, DELETE
 -- AS
 -- [Çalışması İstenen Kodlar]  -- Kod kısmını BEGIN-END komutları içine aladabilirsin, almayadabilirsin.
+```
 
 ```sql
 USE Northwind
