@@ -14,3 +14,58 @@ Simple ve Full recovery modelleri arasındadır. Bulk işlemler (örneğin txt b
 
 ## Veritabanının Recovery Modelinin Öğrenilmesi
 
+![Alternatif Metin](Assets/Screenshot21.png)
+
+Recovery Model’in SQL ile değiştirilmesi:
+
+```sql
+ALTER DATABASE VTSali SET RECOVERY Simple / Full / Bulk_Logged
+```
+
+## Yedekleme Türleri
+
+### Full Backup (Tam Yedekleme)
+
+Veritabanı’nın tamamını yedekleme işlemidir. Onaylanmamış transaction log yedekleri de alınır. Diğer yedekleme seçenekleri için de başlangıç noktasıdır. Yoğun transaction işlemlerinin olmadığı küçük veritabanlarında ve kısa süreli veri kaybının önemli olmadığı veritabanlarında tercih edilir. 
+
+### Differential Backup (Fark Yedekleme)
+
+En son alınan Full yedekten sonraki yapılan değişikliklerin yedeklendiği türdür. Sadece farklılıklar yedeklendiği için Full’e göre daha hızlı ve boyut olarak daha küçüktür.
+
+### Transaction Log Backup (İşlem Günlüğü Yedekleme)
+
+Sadece transaction logların yedeğini alır. Öncesinde bir kez Full yedek alınmalıdır. Bu yedekleme ile herhangi bir andaki noktaya geri dönülebilir. Veri kaybı riskinin fazla olduğu ve yoğun transaction işlemleri olan senaryolarda belli aralıklarla yapılması önerilir. Simple Recovery Model’de desteklenmez. 
+
+## Full Recovery Model’de Full Backup
+
+![Alternatif Metin](Assets/Screenshot22.png)
+
+## Full Model’de Restore
+
+* Restore işlemi öncesinde, veritabanına tüm bağlantılar kapatılmalıdır. Yoksa hata verecektir.
+* Backup alındıktan sonra oluşturulmuş olan tablolar veya varolan bir tabloya backup sonrasında girilmiş olan veriler gibi değişikliklerin tamamı Recovery yapıldığında kaybolacaktır.
+
+![Alternatif Metin](Assets/Screenshot23.png)
+
+## Farklı Backup Türlerinin Dosya Boyutları
+
+Differential Backup’ların boyutları, Full Backup’lardan daha azdır.
+
+![Alternatif Metin](Assets/Screenshot24.png)
+
+## Backup-Restore’un SQL Kodlarıyla Yapılması
+
+```sql
+BACKUP DATABASE TEST TO DISK='E:\BACKUP\SQL_Kodla_Backup.Bak' 
+WITH INIT -- WITH INIT: Aynı konum ve isimde önceden varolan dosya varsa üzerine yazar.
+
+BACKUP DATABASE TEST TO DISK='E:\BACKUP\SQL_Kodla_Diff_Backup.bak' 
+WITH DIFFERENTIAL
+
+RESTORE DATABASE TEST FROM DISK='E:\BACKUP\SQL_Kodla_Backup.bak'
+WITH REPLACE
+```
+
+## BackUp İşleminin Job Olarak Yapılması
+
+![Alternatif Metin](Assets/Screenshot25.png)
