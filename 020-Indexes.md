@@ -43,6 +43,95 @@ Sql Server’da indexler temelde clustered ve non-clustered index olmak üze
 * B-tree yapısında leaf node’larda tutulan veri, verinin kendisi ise Clustered indextir. 
 * Bir tabloya Primary Key eklendiği zaman, Prımary Key default olarak her zaman o tablonun clustered indexi olarak tanımlıdır. Özetle primary key aynı zamanda bir clustred indextir.
 
+```sql
+USE Db_Education
+
+-- Örnek 1
+CREATE TABLE Telefon_Rehberi(
+Id INT,
+TelNo BIGINT,
+Ad NVARCHAR(MAX),
+Soyad NVARCHAR(MAX)
+)
+
+INSERT INTO Telefon_Rehberi VALUES(3, 100 , 'Gökçen' ,'Bektaşoğlu')
+INSERT INTO Telefon_Rehberi VALUES(6, 200 , 'Esin' ,'Boduroğlu')
+INSERT INTO Telefon_Rehberi VALUES(2, 150 , 'Hande' ,'Boduroğlu')
+INSERT INTO Telefon_Rehberi VALUES(1, 600 , 'Alperen' ,'Bektaşoğlu')
+INSERT INTO Telefon_Rehberi VALUES(8, 500 , 'Ceren' ,'Yalçın')
+
+SELECT * FROM Telefon_Rehberi --Table Scan
+SELECT * FROM Telefon_Rehberi WHERE Id = 8 --Table Scan
+SELECT * FROM Telefon_Rehberi WHERE Ad = 'Alperen' --Table Scan
+
+SET STATISTICS IO ON
+SET STATISTICS TIME ON
+
+SET STATISTICS IO OFF
+SET STATISTICS TIME OFF
+
+DROP TABLE Telefon_Rehberi
+
+-- Örnek 2
+CREATE TABLE Telefon_Rehberi(
+Id INT PRIMARY KEY,
+TelNo BIGINT,
+Ad NVARCHAR(MAX),
+Soyad NVARCHAR(MAX)
+)
+
+INSERT INTO Telefon_Rehberi VALUES(3, 100 , 'Gökçen' ,'Bektaşoğlu')
+INSERT INTO Telefon_Rehberi VALUES(6, 200 , 'Esin' ,'Boduroğlu')
+INSERT INTO Telefon_Rehberi VALUES(2, 150 , 'Hande' ,'Boduroğlu')
+INSERT INTO Telefon_Rehberi VALUES(1, 600 , 'Alperen' ,'Bektaşoğlu')
+INSERT INTO Telefon_Rehberi VALUES(8, 500 , 'Ceren' ,'Yalçın')
+
+SELECT * FROM Telefon_Rehberi -- Clustered scan
+SELECT * FROM Telefon_Rehberi WHERE Id = 8 -- Clustered seek
+SELECT * FROM Telefon_Rehberi WHERE Ad = 'Alperen' -- Clustered scan
+
+DROP TABLE Telefon_Rehberi
+
+-- Yukarıda ki örnekte eklenecek verilerin Id sırası düzensiz ama tabloya eklenince Id'ye göre sıralanıyor. Bunun sebebi primary key'in aynı zamanda clustured index olmasından dolayı, arka tarafta fiziksel sıralama yapılıyor.
+
+SET STATISTICS IO ON
+SET STATISTICS TIME ON
+
+SET STATISTICS IO OFF
+SET STATISTICS TIME OFF
+```
+
+#### Clustered Index Oluşturma
+
+```sql
+CREATE TABLE Telefon_Rehberi(
+Id INT,
+TelNo BIGINT,
+Ad NVARCHAR(20),
+Soyad NVARCHAR(20)
+)
+
+INSERT INTO Telefon_Rehberi VALUES(3, 100 , 'Gökçen' ,'Bektaşoğlu')
+INSERT INTO Telefon_Rehberi VALUES(6, 200 , 'Esin' ,'Boduroğlu')
+INSERT INTO Telefon_Rehberi VALUES(2, 150 , 'Hande' ,'Boduroğlu')
+INSERT INTO Telefon_Rehberi VALUES(1, 600 , 'Alperen' ,'Bektaşoğlu')
+INSERT INTO Telefon_Rehberi VALUES(8, 500 , 'Ceren' ,'Yalçın')
+
+CREATE CLUSTERED INDEX Clustered_first ON Telefon_Rehberi (Id ASC)
+
+SELECT * FROM Telefon_Rehberi -- Clustered scan
+SELECT * FROM Telefon_Rehberi WHERE Id = 8 -- Clustered seek
+SELECT * FROM Telefon_Rehberi WHERE Ad = 'Alperen' -- Clustered scan
+
+SET STATISTICS IO ON
+SET STATISTICS TIME ON
+
+SET STATISTICS IO OFF
+SET STATISTICS TIME OFF
+
+DROP TABLE Telefon_Rehberi
+```
+
 ### Non-Clustered Index
 
 * Bir tabloda clustured indeks olan kolon dışında farklı bir kolon üzerinden tekrar indeksleme yapılmak isteniyorsa non-clustured indeks kullanılır ve bunun için tekrar bir dengeli ağaç yapısı(balance tree) oluşturulur.
@@ -65,6 +154,41 @@ Sql Server’da indexler temelde clustered ve non-clustered index olmak üze
 Index tanımlarken en önemli nokta, çalışılan sistemin OLAP veya OLTP olduğudur. OLAP’lar okuma ağırlıklı sistemler olduğundan, index sayısının fazla olması işleri kolaylaştırır. OLTP’ler de daha çok Update, Insert, Delete işlemleri yoğun olduğu için index sayısının artması SQL Server’a yük getirir. Az olması tavsiye edilir. Ancak bir tablo için hiç index tanımlanmaması da tabloda fazlaca kayıt olduğu sürece performansı azaltır. Bri tabloda bir clustered ve bir tane de non-clustered olduğunu varsayalım. Bu tabloya 1 kayıt eklendiğinde aslında 3 ekleme yapılmaktadır. Bundan dolayı ındexler okuma da hızı getirir ama yazma konusunda yavaşlığa neden olur.
 
 **Not:** Not: Sql Server index ihtiyacını aslında kendisi belirler. Bizim tanımlayacağımız index’leri kullanıp kullanmamaya Query optimizer aracılığı ile  kendisi karar verir.
+
+### Non-Clustered Index Oluşturma
+
+```sql
+CREATE TABLE Telefon_Rehberi(
+Id INT PRIMARY KEY,
+TelNo BIGINT,
+Ad NVARCHAR(20),
+Soyad NVARCHAR(20)
+)
+
+INSERT INTO Telefon_Rehberi VALUES(3, 100 , 'Gökçen' ,'Bektaşoğlu')
+INSERT INTO Telefon_Rehberi VALUES(6, 200 , 'Esin' ,'Boduroğlu')
+INSERT INTO Telefon_Rehberi VALUES(2, 150 , 'Hande' ,'Boduroğlu')
+INSERT INTO Telefon_Rehberi VALUES(1, 600 , 'Alperen' ,'Bektaşoğlu')
+INSERT INTO Telefon_Rehberi VALUES(8, 500 , 'Ceren' ,'Yalçın')
+
+CREATE NONCLUSTERED INDEX Nonclustered_First ON Telefon_Rehberi (Ad DESC)
+
+SELECT * FROM Telefon_Rehberi -- Clustered scan
+SELECT * FROM Telefon_Rehberi WHERE Id = 8 -- Clustered seek
+SELECT * FROM Telefon_Rehberi WHERE Ad = 'Alperen' -- Clustered scan
+
+SET STATISTICS IO ON
+SET STATISTICS TIME ON
+
+SET STATISTICS IO OFF
+SET STATISTICS TIME OFF
+
+DROP TABLE Telefon_Rehberi
+```
+
+## Composite Index Oluşturma
+
+Tablo üzerinde tanımlanan index tek kolon üzerinden değil de birden fazla kolon üzerinden tanımlandıysa bu index türüne composite index denir. Bir tabloda en fazla 16 kolona kadar composite index tanımlanabilir. Hem clustered hem de non-clustered index’ler composite olarak tanımlanabilir. Bir tablo da sadece bir tane clustered index yapısı tanımlanabiliyor. Fakat bu tanımlamada, birden fazla kolon’a göre iç içe dizilim gerçekleştirebiliriz. Bu index tanımında kolonların hangi sırada yazıldığı da çok önemlidir. Index performansının artması için çeşitliliği fazla olan kolon başa yazılmalıdır. Yani tablodaki verilere göre tekil veri sayısı fazla olan kolon başa yazılır.
 
 
 
