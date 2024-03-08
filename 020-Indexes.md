@@ -149,7 +149,7 @@ DROP TABLE Telefon_Rehberi
 
 **Not:** Tabloda clustered index varsa, non-clustered indexin Satır Tanımlayıcısı (RID) clustered indexin anahtarına işaret eder.
 
-### Non-Clustered Index Oluşturma
+#### Non-Clustered Index Oluşturma
 
 ```sql
 CREATE TABLE Telefon_Rehberi(
