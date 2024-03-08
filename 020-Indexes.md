@@ -29,6 +29,43 @@ Tablodaki kolon veya kolonlara index tanımlandığı zaman, Sql Server o tablod
 
 Örnekte de görüldüğü gibi index olan bir kolonda arama yaparken, aradığımız veriyi daha az mantıksal okuma ile bulabiliriz. Ama index kullanılmasaydı, yani veriler yukarıdaki gibi ağaç yapısında organize edilmeseydi tüm kayıtlar gezilerek veriye ulaşılmaya çalışılacaktı.
 
+## Heap Table
+Sql Server’da heap table adında bir somut bir kavram yoktur. Bir tabloya heap denilmesi aslında onun üzerinde bir index tanımlı olup olmamasına bağlıdır. Sql Server bir veriyi indexsiz bir tabloya eklerken sıralı olarak diskte tutmaz ve veriler rastgele data page’lere yazılır. Bu şekilde olan tablolar heap table diye adlandırılır. Yani üzerinde clustered index olmayan tablolar heap table’dır diyebiliriz.
+
+## Index Çeşitleri
+Sql Server’da indexler temelde clustered ve non-clustered index olmak üzere ikiye ayrılır.
+
+### Clustered Index
+
+* Verilerin belirli bir kolona göre fiziksel olarak sıralanmasını sağlayan index’e clustered index ismi verilir. 
+* Bir tablo fiziksel olarak sıralandığından tablo üzerinde sadece bir tane clustered index tanımlanabilir. Clustered index için seçilecek kolon sorgulardaki en fazla kullanılan kolon olmalıdır. Veriler, bu kolona göre fiziksel olarak sıralanacağından verilere çok hızlı erişilir. 
+* Ayrıca seçilen kolonun çok değiştirilmeyen bir alan olması gerekir. Çünkü index’e ait kolonun değişmesi demek ilgili kolonun yeniden B-Tree yapısına göre organize olması yani fiziksel olarak yeniden sıralanması anlamına gelir. 
+* B-tree yapısında leaf node’larda tutulan veri, verinin kendisi ise Clustered indextir. 
+* Bir tabloya Primary Key eklendiği zaman, Prımary Key default olarak her zaman o tablonun clustered indexi olarak tanımlıdır. Özetle primary key aynı zamanda bir clustred indextir.
+
+### Non-Clustered Index
+
+* Bir tabloda clustured indeks olan kolon dışında farklı bir kolon üzerinden tekrar indeksleme yapılmak isteniyorsa non-clustured indeks kullanılır ve bunun için tekrar bir dengeli ağaç yapısı(balance tree) oluşturulur.
+  
+**Not:** Non-clustered index atamak için tabloda clustered index olmasına gerek yoktur.
+
+* Non-Clustered Index veriyi fiziksel değil mantıksal olarak sıralar. 
+* Bir kolonu non-clustered index olarak indexlediğinizde, Sql Server arka tarafta yeni bir tablo oluşturur. Non-clustered indekste verilere direkt erişilemez. 
+* B-tree yapısında leaf node’larda tutulan veri, verinin nerede olduğu bilgisi(clustered index anahtarı yada heapte ki adresi) ise Non-Clustered indextir.
+* Non-Clustered Indexler, clustered index veya Heap üstünden hızlı olarak kayıtlara erişim sağlamak için tanımlanırlar. Bir tabloda en fazla 249 tane Non-Clustered index olabilir.
+
+**Not:** Unique non-clustered indexte, clustered index anahtarı, non-clustered indexin B-tree yapısının leaf seviyesine eklenir. Unique olmayan non-clustered indexte, clustered index anahtarı, non-clustered indexin B-tree yapısının bütün seviyelerine eklenir.
+
+**Not:** Non-clustered index tanımlanırken eğer tabloda clustered index yoksa, leaf level’ın pagelerinde tutulan veri, heap table’ı gösteren non-clustered indexin satır tanımlayıcısıdır(RID). Heap table’da, verileri bulana kadar kaydı satır satır arayacaktır.
+
+**Not:** Tabloda clustered index varsa, non-clustered indexin Satır Tanımlayıcısı (RID) clustered indexin anahtarına işaret eder.
+
+## Index Tanımlama Yaklaşımları
+
+Index tanımlarken en önemli nokta, çalışılan sistemin OLAP veya OLTP olduğudur. OLAP’lar okuma ağırlıklı sistemler olduğundan, index sayısının fazla olması işleri kolaylaştırır. OLTP’ler de daha çok Update, Insert, Delete işlemleri yoğun olduğu için index sayısının artması SQL Server’a yük getirir. Az olması tavsiye edilir. Ancak bir tablo için hiç index tanımlanmaması da tabloda fazlaca kayıt olduğu sürece performansı azaltır. Bri tabloda bir clustered ve bir tane de non-clustered olduğunu varsayalım. Bu tabloya 1 kayıt eklendiğinde aslında 3 ekleme yapılmaktadır. Bundan dolayı ındexler okuma da hızı getirir ama yazma konusunda yavaşlığa neden olur.
+
+**Not:** Not: Sql Server index ihtiyacını aslında kendisi belirler. Bizim tanımlayacağımız index’leri kullanıp kullanmamaya Query optimizer aracılığı ile  kendisi karar verir.
+
 
 
 
