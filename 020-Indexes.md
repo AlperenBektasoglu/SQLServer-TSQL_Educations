@@ -234,7 +234,7 @@ INSERT INTO Telefon_Rehberi VALUES(3, 100 , 'Gökçen' ,'Bektaþoðlu') -- Hata 
 DROP TABLE Telefon_Rehberi
 ```
 
-##Komplex Index Örneği
+## Komplex Index Örneği
 
 Önce nonclustured index'in B-tree yapısından tek bir dolanma ile bütün verileri bulur. Ardýndan her veri içintek tek clustered indexte yada heapte arama yapar.
 
@@ -285,5 +285,10 @@ CREATE NONCLUSTERED INDEX example_2 ON Deneme_1 (Ad DESC)
 SELECT * FROM Deneme_1 WHERE Ad = 'Alperen100' -- 3 reads
 ```
 
+## Index Silme
 
+```sql
+DROP INDEX dbo.Deneme_1.example_1
+DROP INDEX dbo.Deneme_1.example_2
+```
 
