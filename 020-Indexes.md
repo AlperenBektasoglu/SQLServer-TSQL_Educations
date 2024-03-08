@@ -149,12 +149,6 @@ DROP TABLE Telefon_Rehberi
 
 **Not:** Tabloda clustered index varsa, non-clustered indexin Satır Tanımlayıcısı (RID) clustered indexin anahtarına işaret eder.
 
-## Index Tanımlama Yaklaşımları
-
-Index tanımlarken en önemli nokta, çalışılan sistemin OLAP veya OLTP olduğudur. OLAP’lar okuma ağırlıklı sistemler olduğundan, index sayısının fazla olması işleri kolaylaştırır. OLTP’ler de daha çok Update, Insert, Delete işlemleri yoğun olduğu için index sayısının artması SQL Server’a yük getirir. Az olması tavsiye edilir. Ancak bir tablo için hiç index tanımlanmaması da tabloda fazlaca kayıt olduğu sürece performansı azaltır. Bri tabloda bir clustered ve bir tane de non-clustered olduğunu varsayalım. Bu tabloya 1 kayıt eklendiğinde aslında 3 ekleme yapılmaktadır. Bundan dolayı ındexler okuma da hızı getirir ama yazma konusunda yavaşlığa neden olur.
-
-**Not:** Not: Sql Server index ihtiyacını aslında kendisi belirler. Bizim tanımlayacağımız index’leri kullanıp kullanmamaya Query optimizer aracılığı ile  kendisi karar verir.
-
 ### Non-Clustered Index Oluşturma
 
 ```sql
@@ -186,10 +180,110 @@ SET STATISTICS TIME OFF
 DROP TABLE Telefon_Rehberi
 ```
 
+## Index Tanımlama Yaklaşımları
+
+Index tanımlarken en önemli nokta, çalışılan sistemin OLAP veya OLTP olduğudur. OLAP’lar okuma ağırlıklı sistemler olduğundan, index sayısının fazla olması işleri kolaylaştırır. OLTP’ler de daha çok Update, Insert, Delete işlemleri yoğun olduğu için index sayısının artması SQL Server’a yük getirir. Az olması tavsiye edilir. Ancak bir tablo için hiç index tanımlanmaması da tabloda fazlaca kayıt olduğu sürece performansı azaltır. Bri tabloda bir clustered ve bir tane de non-clustered olduğunu varsayalım. Bu tabloya 1 kayıt eklendiğinde aslında 3 ekleme yapılmaktadır. Bundan dolayı ındexler okuma da hızı getirir ama yazma konusunda yavaşlığa neden olur.
+
+**Not:** Not: Sql Server index ihtiyacını aslında kendisi belirler. Bizim tanımlayacağımız index’leri kullanıp kullanmamaya Query optimizer aracılığı ile  kendisi karar verir.
+
 ## Composite Index Oluşturma
 
 Tablo üzerinde tanımlanan index tek kolon üzerinden değil de birden fazla kolon üzerinden tanımlandıysa bu index türüne composite index denir. Bir tabloda en fazla 16 kolona kadar composite index tanımlanabilir. Hem clustered hem de non-clustered index’ler composite olarak tanımlanabilir. Bir tablo da sadece bir tane clustered index yapısı tanımlanabiliyor. Fakat bu tanımlamada, birden fazla kolon’a göre iç içe dizilim gerçekleştirebiliriz. Bu index tanımında kolonların hangi sırada yazıldığı da çok önemlidir. Index performansının artması için çeşitliliği fazla olan kolon başa yazılmalıdır. Yani tablodaki verilere göre tekil veri sayısı fazla olan kolon başa yazılır.
 
+```sql
+CREATE TABLE Telefon_Rehberi(
+Id INT,
+TelNo BIGINT,
+Ad NVARCHAR(20),
+Soyad NVARCHAR(20)
+)
+
+INSERT INTO Telefon_Rehberi VALUES(3, 100 , 'Gökçen' ,'Bektaþoðlu')
+INSERT INTO Telefon_Rehberi VALUES(6, 200 , 'Esin' ,'Boduroðlu')
+INSERT INTO Telefon_Rehberi VALUES(2, 150 , 'Hande' ,'Boduroðlu')
+INSERT INTO Telefon_Rehberi VALUES(1, 600 , 'Alperen' ,'Bektaþoðlu')
+INSERT INTO Telefon_Rehberi VALUES(1, 600 , 'Aslý' ,'Bektaþoðlu')
+INSERT INTO Telefon_Rehberi VALUES(1, 600 , 'Abdullah' ,'Bektaþoðlu')
+INSERT INTO Telefon_Rehberi VALUES(8, 500 , 'Ceren' ,'Yalçýn')
+
+CREATE CLUSTERED INDEX Composite_second ON Telefon_Rehberi (Id ASC, Ad ASC) -- İlk olarak Id'ye göre sıralayacak, ardından Ad'a göre sıralayacaktır.
+
+DROP TABLE Telefon_Rehberi
+```
+
+## Unique Index Oluşturma
+
+Aşağıdaki örnekte clustered index unique yapıldı. Aynı işlem non-clustered indexe'de uygulanabilir. 
+
+```sql
+CREATE TABLE Telefon_Rehberi(
+Id INT,
+TelNo BIGINT,
+Ad NVARCHAR(20),
+Soyad NVARCHAR(20)
+)
+
+CREATE UNIQUE CLUSTERED INDEX Clustered_Unique ON Telefon_Rehberi (Id ASC)
+
+INSERT INTO Telefon_Rehberi VALUES(3, 100 , 'Gökçen' ,'Bektaþoðlu')
+INSERT INTO Telefon_Rehberi VALUES(6, 200 , 'Esin' ,'Boduroðlu')
+INSERT INTO Telefon_Rehberi VALUES(2, 150 , 'Hande' ,'Boduroðlu')
+
+INSERT INTO Telefon_Rehberi VALUES(3, 100 , 'Gökçen' ,'Bektaþoðlu') -- Hata verir.
+
+DROP TABLE Telefon_Rehberi
+```
+
+##Komplex Index Örneği
+
+Önce nonclustured index'in B-tree yapısından tek bir dolanma ile bütün verileri bulur. Ardýndan her veri içintek tek clustered indexte yada heapte arama yapar.
+
+```sql
+CREATE TABLE Deneme_1(
+Id INT,
+Ad VARCHAR(30),
+Soyad VARCHAR(30),
+Telefon VARCHAR(11),
+Meslek VARCHAR(30)
+)
+
+DECLARE @sayac INT = 1
+WHILE @sayac <100000
+BEGIN
+	INSERT Deneme_1
+	SELECT @sayac, 'Alperen' + CAST(@sayac AS varchar(10)), 'Bektaþoðlu' + CAST(@sayac AS varchar(10)), '555', 'Meslek' + CAST(@sayac AS varchar(10))
+	SET @sayac = @sayac + 1
+END
+
+SELECT * FROM Deneme_1 -- 823 reads
+SELECT * FROM Deneme_1 WHERE Id = 9999 -- 823 reads
+SELECT * FROM Deneme_1 WHERE Ad = 'Alperen555' -- 823 reads
+
+SET STATISTICS IO ON
+SET STATISTICS TIME ON
+
+SET STATISTICS IO OFF
+SET STATISTICS TIME OFF
+
+CREATE CLUSTERED INDEX example_1 ON Deneme_1 (Id DESC)
+
+SELECT * FROM Deneme_1 -- 820 reads
+SELECT * FROM Deneme_1 WHERE Id = 9999 -- 3 reads
+SELECT * FROM Deneme_1 WHERE Ad = 'Alperen555' -- 820 reads
+
+CREATE NONCLUSTERED INDEX example_2 ON Deneme_1 (Ad DESC)
+
+SELECT * FROM Deneme_1 -- 820 reads
+SELECT * FROM Deneme_1 WHERE Id = 9999 -- 3 reads
+SELECT * FROM Deneme_1 WHERE Ad = 'Alperen555' -- 3 reads
+
+DROP INDEX dbo.Deneme_1.example_1
+DROP INDEX dbo.Deneme_1.example_2
+
+CREATE NONCLUSTERED INDEX example_2 ON Deneme_1 (Ad DESC)
+
+SELECT * FROM Deneme_1 WHERE Ad = 'Alperen100' -- 3 reads
+```
 
 
 
