@@ -60,7 +60,7 @@ WHERE UrunNo NOT IN ( SELECT UrunNo FROM Satis )
 
 ## With Kullanımı
 
-WITH kullanımının mantığı; iç içe sorgularda, aynı sorgunun tekrar tekrar yazılmasını ortadan kaldırmaktır. WITH ile oluşturduğumuz tablo, localde tutulmaktadır. Data dictionary’de tutulmamaktadır. (procedure, function data dictionary’de tutulur.)
+WITH kullanımının mantığı; iç içe sorgularda, aynı sorgunun tekrar tekrar yazılmasını ortadan kaldırmaktır. WITH ile oluşturduğumuz tablo, localde tutulmaktadır. Data dictionary’de tutulmamaktadır. (procedure, function vs. data dictionary’de tutulur.)
 
 ```sql
 WITH SonucTbl(isim, id)
