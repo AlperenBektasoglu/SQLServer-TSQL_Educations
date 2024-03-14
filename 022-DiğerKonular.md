@@ -54,4 +54,15 @@ SELECT IDENT_CURRENT('ORNEKTABLO1')
 -- 1
 ```
 
+## @@Rowcount Komutu
+
+DML (Data Manipulation Language – select, insert, update, delete) işleminden etkilenen satirlarin toplam sayısını döndürür.
+
+```sql
+USE Nortwind
+SELECT * FROM Personeller
+SELECT @@ROWCOUNT
+```
+
+
 
