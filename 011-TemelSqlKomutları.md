@@ -63,6 +63,31 @@ SELECT KategoriID , COUNT(*) FROM Urunler WHERE KategoriID < 5 GROUP BY Kategori
 SELECT PersonelID , SUM(NakliyeUcreti) FROM Satislar GROUP BY PersonelID HAVING SUM(NakliyeUcreti) > 5000
 ```
 
+## With Rollup Komutu
+
+Group By ile gruplandırılmış veri kümesinde ara toplam alınmasını sağlar. 
+
+```sql
+-- Örnek 1 (10252 numaralı satış id'lerindeki bütün ürünlerin toplam miktarını toplayan ve bunu sorguya yeni bir satır ekleyerek gösteren bir örnektir.)
+-- Aşağıdaki örnekte aslında 10252 numaralı satış id'lerine karşılık gelen SUM(Miktar) değerlerini topayıp, yeni satır olarak sonuca ekledi.
+SELECT SatisID, UrunID, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID, UrunID WITH ROLLUP WHERE SatisID = 10252
+
+-- Örnek 2 (With Rollup komutunun Having komutu ile kullanılması)
+SELECT SatisID, UrunID, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID, UrunID WITH ROLLUP HAVING SUM(Miktar) > 100
+```
+
+## With Cube Komutu
+
+Group By ile gruplandırılmış veri kümesinde teker teker toplam alınmasını sağlar. With Rollup ile aslında SatisID alanına göre SUM(Miktar) değerleri toplanıp yeni satır olarak eklendi. With Cube ile aslında UrunID alanına göre SUM(Miktar) değerleri toplanıp yeni satır olarak eklendi.
+
+```sql
+-- Örnek 1
+SELECT SatisID, UrunID, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID, UrunID WITH CUBE
+
+-- Örnek 2 (With Rollup komutunun Having komutu ile kullanılması)
+SELECT SatisID, UrunID, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID, UrunID WITH CUBE HAVING SUM(Miktar) > 100
+```
+
 ## Order By Komutu
 
 Kayıtları belirtilen alanda büyükten küçüğe veya küçükten büyüğe göre sıralar. Defaul olarak küçükten büyüğe sıralanır. (ASC)
