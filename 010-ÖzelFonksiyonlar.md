@@ -154,3 +154,31 @@ DATENAME(WEEK, GETDATE()) as Hafta,
 DATENAME(WEEKDAY, GETDATE()) as Gun,
 DATENAME(MINUTE, GETDATE()) as Dakika
 ```
+
+## Coalesce Fonksiyonu İle Null Değer Kontrolü
+
+Birinci parametre olarak verilen kolondaki null değerleri, ikinci parametrede ki değer ile değiştirir.
+
+```sql
+SELECT MusteriAdi, COALESCE(Bolge, 'Bölge bilinmiyor') FROM Musteriler
+```
+
+## IsNull Fonksiyonu İle Null Değer Kontrolü
+
+Birinci parametre olarak verilen kolondaki null değerleri, ikinci parametrede ki değer ile değiştirir.
+
+```sql
+SELECT MusteriAdi, ISNULL(Bolge, 'Bölge bilinmiyor') FROM Musteriler
+```
+
+##  NullIf Fonksiyonu İle Null Değer Kontrolü
+
+Fonksiyona verilen birinci parametre, ikinci parametredeki değere eşit ise birinci parametreyi null olarak getirir. Değil ise birinci parametreyi olduğu gibi getirir.
+
+```sql
+SELECT NULLIF(0, 0) -- Çıktı: NULL
+SELECT NULLIF(5, 0) -- Çıktı: 5
+```
+
+
+
