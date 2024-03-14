@@ -110,6 +110,18 @@ SELECT * FROM [Satis Detaylari] ORDER BY İndirim ASC , Miktar DESC
 SELECT * FROM [Satis Detaylari] WHERE Miktar >= 100 ORDER BY UrunID ASC
 ```
 
+## With Ties komutu
+
+WITH TIES, TOP ve ORDER BY ile birlikte kullanılır. ORDER BY ile sıralanan sonuçlarda son kayıt ile aynı değerde olan kayıtların da listelenmesini sağlar. Bu durumda sonuç belirtilen n sayısından daha fazla olabilir. WITH TIES sadece ORDER BY ile birlikte kullanılmaktadır.
+
+```sql
+-- Aşağıdaki yapıda “Satis Detayları” adlı tablodan ilk 6 veri gelecektir.Ancak bu verilerden sonuncu olanı “10250” nolu kayıtın iki adeti dışarda kalmaktadır.Bu ikisinide getirmek için “WITH TIES” yapısını kullanmaktayız. With Ties order by ile sıralanmış kolonda, en son kayda bakar, eğer onun altında aynı nolu kayıt varsa onu da getirir. Bu yapıyı kullanabilmek için tek şart order by kullanılmalıdır.
+
+SELECT TOP 6 * FROM [Satis Detaylari] 
+
+SELECT TOP 6 WITH TIES * FROM [Satis Detaylari] 
+```
+
 ## Toplu Kullanım
 
 ```sql
