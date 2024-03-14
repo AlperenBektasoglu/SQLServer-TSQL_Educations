@@ -64,5 +64,17 @@ SELECT * FROM Personeller
 SELECT @@ROWCOUNT
 ```
 
+## Veritabanındaki Tabloları Listeleme
+
+```sql
+SELECT * FROM sys.tables
+```
+
+## Bir Tabloda Primary Key Olup Olmadığını Kontrol Etme
+
+```sql
+SELECT OBJECTPROPERTY(OBJECT_ID('Personeller'), 'TableHasPrimaryKey')
+```
+
 
 
