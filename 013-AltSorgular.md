@@ -58,3 +58,16 @@ SELECT UrunNo FROM Urun
 WHERE UrunNo NOT IN ( SELECT UrunNo FROM Satis )
 ```
 
+## With Kullanımı
+
+WITH kullanımının mantığı; iç içe sorgularda, aynı sorgunun tekrar tekrar yazılmasını ortadan kaldırmaktır. WITH ile oluşturduğumuz tablo, localde tutulmaktadır. Data dictionary’de tutulmamaktadır. (procedure, function data dictionary’de tutulur.)
+
+```sql
+WITH SonucTbl(isim, id)
+AS
+(
+SELECT Musteriler.MusteriAdi, Satislar.SatisID FROM Musteriler INNER JOIN Satislar
+ON Musteriler.MusteriID = Satislar.MusteriID
+)
+SELECT SonucTbl.isim, SonucTbl.id FROM SonucTbl INNER JOIN [Satis Detaylari] on SonucTbl.id = [Satis Detaylari].SatisID
+```
