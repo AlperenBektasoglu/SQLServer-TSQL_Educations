@@ -57,6 +57,20 @@ USE Northwind
 ### Unicode Nedir? Unicode ile ASCII Farkları Nelerdir? 
 Unicode’un geliştirilmesinin arında yatan temel neden ASCII (American Standart Code for Information Interchange) karakter kodlamasının daha gelişmiş ve stratejik bir sürümünün oluşturulabilmesidir. ASCII karakterler sadece İngilizce üzerinde etkili olurken, Unicode tamamen evrenseldir. Unicode’un farklı sürümleri sayesinde İbranice ve Arapça gibi kompleks diller başta olmak üzere Çince gibi karmaşık diller kolayca dijital ortamlara aktarılabilmektedir. Yalnızca diller değil, Unicode kodlaması sayesinde karmaşık semboller ve karakterler kolayca meydana getirilebilirler. Yapısal açıdan bilgisayarlar sayılar yardımıyla çalışırlar. Her karakter için hafızlarında bir sayı tutar ve bu sayı yardımıyla karakter, rakam veya sembolün oluşturulmasını sağlarlar.
 
+## Uniqueidentifier Veri Tipi
+
+Aldığı değerler, rakamlar ve harflerden oluşan çok büyük bir sayıdır. Bundan dolayı bu tipteki kolona aynı değerin birden fazla gelmesi neredeyse imkansızdır. O yüzden tekil bir veri oluşturmak için kullanılır. NEWID() fonksiyonu ile bu tip için rastgele değer üretilir.
+
+```sql
+CREATE TABLE OrnekTablo
+(
+Id INT PRIMARY KEY IDENTITY,
+Kolon1 INT,
+Kolon2 UNIQUEIDENTIFIER
+)
+
+INSERT OrnekTablo VALUES (10, NEWID())
+```
 
 
 
