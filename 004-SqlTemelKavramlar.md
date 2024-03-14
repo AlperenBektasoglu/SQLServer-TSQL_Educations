@@ -16,9 +16,9 @@
 * Çok satırlı yarum: /*...*/
 * Script'i seçtikten sonra çalıştırdığımızda seçtiğimiz script çalışır. Seçilmez ise bütün  scriptler çalışır.
 
-## USE Anahtar Kelimesi
+## Use Anahtar Kelimesi
 
-USE anahtar kelimesi hangi veri tabanında işlem yapacağımızı belirttiğimiz komuttur. 
+Use anahtar kelimesi hangi veri tabanında işlem yapacağımızı belirttiğimiz komuttur. 
 
 ```sql
 USE Northwind
