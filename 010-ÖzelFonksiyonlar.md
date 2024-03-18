@@ -180,5 +180,13 @@ SELECT NULLIF(0, 0) -- Çıktı: NULL
 SELECT NULLIF(5, 0) -- Çıktı: 5
 ```
 
+## ROW_NUMBER() Fonksiyonu
 
+Temelde işlevi her bir satıra karşılık primary kolonundan bağımsız olarak sıralı bir index numarası atanmış kolon tanımlamaktır. Ama bilmemiz gereken ROW_NUMBER() fonksiyonu OVER() fonksiyonu ile birlikte kullanılmaktadır.
 
+```sql
+SELECT ROW_NUMBER() OVER(ORDER BY Adi) Indexer, * FROM Personeller
+SELECT ROW_NUMBER() OVER(ORDER BY Adi) Indexer, * FROM Personeller ORDER BY PersonelId -- Bu örnekte verilen Indexer değerlerinin değişmediğini göreceksin.
+```
+
+<a href="https://www.gencayyildiz.com/blog/transact-sql-row_number-fonksiyonu/"> Kaynak </a>
