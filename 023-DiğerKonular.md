@@ -87,8 +87,27 @@ SELECT IDENT_CURRENT('Personeller')
 Bu komut ile tabloya sadece primary key alanı dolacak şekilde kayıt ekleyebiliriz. Diğer kolonlara null veya default değerler atanacaktır.
 
 ```sql
+USE Nortwind
 INSERT Personeller DEFAULT VALUES
 ```
 
+## ROW_NUMBER() Fonksiyonu
+
+Temelde işlevi her bir satıra karşılık primary kolonundan bağımsız olarak sıralı bir index numarası atanmış kolon tanımlamaktır. Ama bilmemiz gereken ROW_NUMBER() fonksiyonu OVER() fonksiyonu ile birlikte kullanılmaktadır.
+
+```sql
+USE Nortwind
+SELECT ROW_NUMBER() OVER(ORDER BY Adi) Indexer, * FROM Personeller
+SELECT ROW_NUMBER() OVER(ORDER BY Adi) Indexer, * FROM Personeller ORDER BY PersonelId -- Bu örnekte verilen Indexer değerlerinin değişmediğini göreceksin.
+```
+
+Şimdi de bir tabloda tekrar eden datalar içerisinde gruplama işlemi yaparak indexlemenin prototipini inceleyelim.
+
+```sql
+USE Nortwind
+SELECT ROW_NUMBER() OVER(PARTITION BY MusteriId ORDER BY OdemeTarihi) Indexer, * FROM Satislar
+```
+
+<a href="https://www.gencayyildiz.com/blog/transact-sql-row_number-fonksiyonu/"> Kaynak </a>
 
 
