@@ -122,3 +122,9 @@ Ansi_Nulls özelliği "On" değerini aldığı vakit, eşitlik yahut eşit deği
 
 Ansi_Nulls özelliği varsayılan olarak "On" değerine sahiptir.
 
+## Dynamic Data Masking
+
+Adından da anlaşılacağı gibi dinamik veri maskeleme sistemidir. Veritabanımızda, ilişkisel tablolarımızda tuttuğumuz verileri tararken gösterilmesi istenen bilgiler dışındakileri maskeleme özelliğidir. Tabi ki de burada tablodaki bilgiden kastımız kolonlardır. Bir tablo create yahut alter işlemine tabi tutulurken hangi kolonun gizleneceğini artık Dynamic Data Masking özelliğiyle işaretleyebiliyoruz.
+
+Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/sql-server-2016-dynamic-data-masking/"> tıklayın </a>
+
