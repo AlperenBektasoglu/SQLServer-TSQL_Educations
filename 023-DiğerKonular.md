@@ -110,4 +110,15 @@ SELECT ROW_NUMBER() OVER(PARTITION BY MusteriId ORDER BY OdemeTarihi) Indexer, *
 
 <a href="https://www.gencayyildiz.com/blog/transact-sql-row_number-fonksiyonu/"> Kaynak </a>
 
+## Ansi_Nulls Komutu
+
+Ansi_Nulls komutu, where şartlarında kontrol edilen eşitlik yahut eşit değillik durumlarında Null değerlerin dikkate alınıp alınmayacağını belirlememizi sağlayan bir özelliktir. Prototipi aşağıdaki gibidir:
+
+```sql
+SET ANSI_NULLS [ ON | OFF ]
+```
+
+Ansi_Nulls özelliği "On" değerini aldığı vakit, eşitlik yahut eşit değillik şartlarında null değerlere karşı false sonucu döndürülür. Bunun sebebi sorgu aramalarına null değerlerin dahil edilmemesinden kaynaklanmaktadır. Bilakis "Off" değeri aldığı vakit null değerler sorgu sonucuna dahil edileceğinden dolayı şartın durumuna göre gerekli true/false değerini dönecektir.
+
+Ansi_Nulls özelliği varsayılan olarak "On" değerine sahiptir.
 
