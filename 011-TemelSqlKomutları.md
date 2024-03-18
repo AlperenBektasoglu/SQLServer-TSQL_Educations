@@ -7,9 +7,19 @@ SELECT TOP komutu, çağırılacak verilerin sayısını belirtmek için kullan�
 ```sql
 USE Northwind
 SELECT TOP 3 * FROM Personeller
+```
 
+### Top Komutu İle Update İşlemi
+
+```sql
 USE Db_Education
 UPDATE TOP(2) DenemePersoneller SET Isım = 'Boş' 
+```
+
+### Top Komutu İle Delete İşlemi
+
+```sql
+DELETE TOP(5) FROM DenemePersoneller
 ```
 
 ## Distinct Komutu
