@@ -76,5 +76,19 @@ SELECT * FROM sys.tables
 SELECT OBJECTPROPERTY(OBJECT_ID('Personeller'), 'TableHasPrimaryKey')
 ```
 
+## En Son Primary Key Id Değerinin Bulunması
+
+```sql
+SELECT IDENT_CURRENT('Personeller')
+```
+
+## Default Values Kullanımı
+
+Bu komut ile tabloya sadece primary key alanı dolacak şekilde kayıt ekleyebiliriz. Diğer kolonlara null veya default değerler atanacaktır.
+
+```sql
+INSERT Personeller DEFAULT VALUES
+```
+
 
 
