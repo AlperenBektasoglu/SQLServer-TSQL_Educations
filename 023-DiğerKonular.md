@@ -128,3 +128,19 @@ Adından da anlaşılacağı gibi dinamik veri maskeleme sistemidir. Veritabanı
 
 Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/sql-server-2016-dynamic-data-masking/"> tıklayın </a>
 
+## Temporal Tables
+
+Temporal Tables özelliği, Zamansal Tablolar diye nitelendirebileceğimiz bir SQL Server 2016 yeniliğidir. Bu özelliğin özeti, veritabanında yapılan Data Manipulation Language(DML) işlemlerini raporlamamızı sağlayan bir yapıdır. Biz her ne kadar Temporal Tables olarak hitap edecek olsakta, internet yahut başka kaynaklarda “System-Versioned Table” şeklinde bir ifadede edilebilmektedir.  şuana kadar yaptığımız raporlama ve takip sistemlerinde izlediğimiz adımlar oluşturduğumuz tablolara özel “log” tabloları yahut dosyaları oluşturmaktan ibaretti. Yapılan her işlemi ya log tablolarına sorgular eşliğinde kayıt eder yahut trigger‘lar aracılığıyla takip sürecini gerçekleştirirdik. Temporal Tables özelliği ile bu süreci hem teknik olarak daha kullanışlı, hemde pratikte daha az maliyetli bir şekilde gerçekleştiriyor olacağız.
+
+Temporal Tables özelliğinin bize sağlayacağı artıları kısaca maddelersek eğer;
+* Tablomuzda bulunan kayıtların zaman içindeki değişikliklerinin(update) izlenmesi ve takip edilmesi,
+* Tablo üzerinde yanlışlıkla yapılan delete ve update sorgularının geri getirilmesi,
+* Bir verinin belirli bir zamana yahut zaman aralığına odaklı izlenebilmesi.
+
+Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/sql-server-2016-temporal-tables/"> tıklayın </a>
+
+## Row Level Security
+
+SQL Server’da hangi kullanıcının hangi tablo üzerinde hangi işlemi yapabileceğini belirleyebiliyorduk. Lakin kullanıcıların kendilerini ilgilendiren verileri görmesini belirleyemiyorduk. Ta ki, SQL Server 2016 ile gelen Row Level Security özelliği gelene kadar…
+
+Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/sql-server-2016-row-level-security/"> tıklayın </a>
