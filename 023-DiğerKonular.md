@@ -153,3 +153,8 @@ Detaylı incelemek için <a href="https://www.sqlekibi.com/sql-server/sql-server
 ## Sql Bulk Insert
 Detaylı incelemek için <a href="https://www.youtube.com/watch?v=7nIppLEf5bQ&list=PLQVXoXFVVtp2RjHt5teaBOLUcKbq2Ilbo&index=39"> tıklayın </a>
 
+## DCL (Data Control Language - Veri Kontrol Dili)
+
+DCL, bir veritabanı ile ilişkili kullanıcıları ve rollerin izinlerini değiştirmek için yani verilere erişim yetkilerini düzenlemek amacıyla kullanılır.
+
+Detaylı incelemek için <a href="https://ibrahimbayraktar.net/sqlde-yetkilendirme-grant-deny-revoke.html"> tıklayın </a>
