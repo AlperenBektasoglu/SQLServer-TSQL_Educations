@@ -1,8 +1,5 @@
 # Diğer Konular
 
-## Sql Bulk Insert
-<a href="https://www.youtube.com/watch?v=7nIppLEf5bQ&list=PLQVXoXFVVtp2RjHt5teaBOLUcKbq2Ilbo&index=39"> Video kaynağı için tıklayın. </a>
-
 ## Identity Kullanımı
 
 T-SQL’de identity kolonlarla çalışırken yeni üretilen değerleri elde etmemiz gerekebilir. İşte bu ihtiyaca dönük @@IDENTITY komutu yahut SCOPE_IDENTITY() ve IDENT_CURRENT() fonksiyonları kullanılabilir.
@@ -153,6 +150,6 @@ Yapılan sorgulamaların çoğunluğunu veri okuma işleminin oluşturduğunu d�
 
 Detaylı incelemek için <a href="https://www.sqlekibi.com/sql-server/sql-server-execution-plan-nedir.html/"> tıklayın </a>
 
-
-
+## Sql Bulk Insert
+Detaylı incelemek için <a href="https://www.youtube.com/watch?v=7nIppLEf5bQ&list=PLQVXoXFVVtp2RjHt5teaBOLUcKbq2Ilbo&index=39"> tıklayın </a>
 
