@@ -105,7 +105,7 @@ USE Nortwind
 SELECT ROW_NUMBER() OVER(PARTITION BY MusteriId ORDER BY OdemeTarihi) Indexer, * FROM Satislar
 ```
 
-<a href="https://www.gencayyildiz.com/blog/transact-sql-row_number-fonksiyonu/"> Kaynak </a>
+Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/transact-sql-row_number-fonksiyonu/"> tıklayın </a>
 
 ## Ansi_Nulls Komutu
 
