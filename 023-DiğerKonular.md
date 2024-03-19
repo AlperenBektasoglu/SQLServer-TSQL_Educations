@@ -144,3 +144,15 @@ Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/sql-server-2
 SQL Server’da hangi kullanıcının hangi tablo üzerinde hangi işlemi yapabileceğini belirleyebiliyorduk. Lakin kullanıcıların kendilerini ilgilendiren verileri görmesini belirleyemiyorduk. Ta ki, SQL Server 2016 ile gelen Row Level Security özelliği gelene kadar…
 
 Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/sql-server-2016-row-level-security/"> tıklayın </a>
+
+## Execution Plan Nedir?
+
+Yapılan sorgulamaların çoğunluğunu veri okuma işleminin oluşturduğunu düşündüğümüzde, son kullanıcıya istenilen verilerin en kısa sürede iletilmesi oldukça önemlidir. İşte bu noktada SQL Server gelen sorguyu derler ve hangi tabloya gitmesi gerektiği, bu tabloya giderken (varsa) hangi indexi kullanacağı, hangi verileri alacağı ve bunları yaparken istatistiklerden yararlanmak gibi birçok detayı değerlendirir ve plan çıkarır. Arka planda yapmış olduğu bu değerlendirmeler sonrasında, sorgu sonucunu getirirken en az maliyetli planın hangisi olduğuna karar verir. Sorguyu yürütürken kullanacağı bu plana Execution Plan denir. Execution Plan bir kere belirlendikten sonra cache’e alınır ve bir sorgu geldiğinde cachede tutulan planları tarayarak aynı ya da benzer sorgu mevcutsa o execution plan üzerinden sonuçları döndürür.
+
+**Not:** Execution Plan okurken sırası ile yukarıdan aşağıya ve sağdan sola doğru takip edilir. Operatörler arası geçiş sırasında zaten oklar yer almaktadır. Bunları takip etmek amacıyla kullanabileceğiniz gibi diğer operatöre geçiş yaparken aktarılan verinin büyüklüğüyle ilgili bilgi sahibi olmak için de kullanabilirsiniz. Operatörün üzerine geldiğinizde beliren tooltip kısmından da bu verilerin boyutlarını görebilirsiniz.
+
+Detaylı incelemek için <a href="https://www.sqlekibi.com/sql-server/sql-server-execution-plan-nedir.html/"> tıklayın </a>
+
+
+
+
