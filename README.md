@@ -4,7 +4,7 @@
 
 ![United Kingdom](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/gb.png 'United Kingdom') EN: SQL Server And T-SQL Educations
 
-1. 001-GenelBilgiler
+1.001-GenelBilgiler
 
 - [Genel Bilgiler](#genel-bilgiler)
 	- [Veri/Data Nedir?](#veri/data-nedir?)
@@ -14,7 +14,7 @@
 	- [Veri Modelleri/Data Model](#veri-modelleri/data-model)
 		- [İlişkisel Veri Modeli (Relational Data Model)](#i̇lişkisel-veri-modeli-(relational-data-model))
 
-1. 002-VeritabanıTasarımı
+1.002-VeritabanıTasarımı
 
 - [VeritabanıTasarımı](#veritabanıtasarımı)
 	- [Veritabanı Tasarım Aşamaları](#veritabanı-tasarım-aşamaları)
