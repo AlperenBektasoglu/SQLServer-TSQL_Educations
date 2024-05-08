@@ -5,7 +5,7 @@
 ![United Kingdom](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/gb.png 'United Kingdom') EN: SQL Server And T-SQL Educations
 
 - [Genel Bilgiler](001-GenelBilgiler.md)
-	- [Veri/Data Nedir?](001-GenelBilgiler#veri/data-nedir?)
+	- [Veri/Data Nedir?](001-GenelBilgiler.md#veri/data-nedir?)
 	- [Veritabanı/Database Nedir?](001-GenelBilgiler#veritabanı/database-nedir?)
 	- [Veritabanı Yönetim Sistemi (VTYS)/Database Management System(DBMS) Nedir?](001-GenelBilgiler#veritabanı-yönetim-sistemi-(vtys)/database-management-system(dbms)-nedir?)
 	- [VTYS’lerin Faydaları](001-GenelBilgiler#vtys’lerin-faydaları)
