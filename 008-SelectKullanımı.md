@@ -203,12 +203,3 @@ SELECT * FROM Personeller WHERE adi LIKE '+_%' ESCAPE '+'
 SELECT * FROM Personeller WHERE adi LIKE 'a_%' ESCAPE 'a'
 SELECT * FROM Personeller WHERE SoyAdi LIKE '^%%' ESCAPE '^'
 ```
-
-## Top(n) Komutu
-
-Sorgudan gelen ilk n kaydı ifade eder.
-
-```sql
-SELECT TOP 10 * FROM Personeller
-SELECT TOP 10 adi FROM Personeller
-```
