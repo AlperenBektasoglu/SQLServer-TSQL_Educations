@@ -1,4 +1,3 @@
-
 # Select Kullanımı
 
 ## Select Komutu
@@ -8,7 +7,7 @@ Seç ve getir işlemi yapar.
 ```sql
 USE Northwind
 
-SELECT 3    
+SELECT 3
 SELECT 'Alperen'
 PRINT 'Alperen'
 SELECT 'Alperen' , 'Bektaşoğlu' , 21 , 42
@@ -24,8 +23,8 @@ Sütuna isim atama işlemi yapar.'as' ifadesinin kullanılması zorunlu değildi
 SELECT 'Alperen' as Ad , 'Bektaşoğlu' Soyad
 SELECT Adi isim , SoyAdi Soyisim FROM Personeller
 
--- Boþluk karakteri olunca Alias atama
-SELECT 'Alperen Bektaþoðlu' [Ad Soyad]
+-- Boşluk karakteri olunca Alias atama
+SELECT 'Alperen Bektaşoğlu' [Ad Soyad]
 
 -- Boşluk karakteri içeren tabloyu sorgulama
 SELECT * FROM [Satis Detaylari]
@@ -68,11 +67,13 @@ SELECT * FROM Personeller WHERE BagliCalistigiKisi < 5
 -- Doğum günü ayın 29 u olmayan personelleri listele.
 SELECT * FROM Personeller WHERE DAY(DogumTarihi) <> 29
 
--- Farklı Bir Select Kullanımı 
+-- Farklı Bir Select Kullanımı
 SELECT * FROM ( VALUES ('ali',70),('veli',60),('can',50) ) AS C(isim, agirlik) WHERE agirlik < 60
+```
 
-------- MANTIKSAL OPERATÖRLERİN KULLANIMI  -------
+### Mantıksal Operatörlerin Kullanımı
 
+```sql
 -- AND Operatörü
 -- Personeller tablosunda şehri London ve ülkesi UK olanları listele.
 SELECT * FROM Personeller WHERE Sehir = 'London' AND Ulke = 'UK'
@@ -82,24 +83,29 @@ SELECT * FROM Personeller WHERE Sehir = 'London' AND Ulke = 'UK'
 SELECT * FROM Personeller WHERE UnvanEki = 'Mr.' OR Sehir = 'Seattle'
 
 -- NOT Operatörü
--- Personeller tablosunda þehri London olmayan verileri listele.
+-- Personeller tablosunda şehri London olmayan verileri listele.
 SELECT * FROM Personeller WHERE NOT(Sehir = 'London')
+```
 
-------- CONDITIONS (KOŞULLAR) KULLANIMI -------
+### Between Kullanımı
 
--- BETWEEN Kullanımı
+```sql
 SELECT * FROM Personeller WHERE YEAR(DogumTarihi) > 1950 AND YEAR(DogumTarihi) <1965
 SELECT * FROM Personeller WHERE YEAR(DogumTarihi) BETWEEN 1950 AND 1965
+```
 
--- IN Kullanımı
+### In / Not In Kullanımı
+
+```sql
 SELECT * FROM Personeller WHERE Sehir = 'Seattle' OR Sehir = 'Tacoma' OR Sehir = 'Kirkland'
 SELECT * FROM Personeller WHERE Sehir IN('Seattle' , 'Tacoma' , 'Kirkland')
-
+SELECT * FROM Personeller WHERE Sehir NOT IN('Seattle' , 'Tacoma' , 'Kirkland')
 ```
 
 ### Where Bloğunda Kullanılan Bağlaçların İşlem Önceliği Sıralaması
 
 Where Bloğundaki işlem öncelik sıralaması:
+
 1. Parantez içi işlemler
 2. Tekil bazda tüm operatörler
 3. NOT işlemi
@@ -117,13 +123,15 @@ Ucret INTEGER
 )
 
 SELECT Perno FROM Personeller WHERE Gorev = 'memur' OR Gorev = 'Sef' AND  Ucret > 3000
-/* {1,2,3,5,8} OR {4,7} AND {4,6,7}
+/*
+   {1,2,3,5,8} OR {4,7} AND {4,6,7}
    {1,2,3,5,8} OR {4,7}
    {1,2,3,4,5,7,8}
 */
 
-SELECT Perno FROM Personeller WHERE NOT(Gorev IN ('Mudur','Sef')) AND Ad LIKE '%e%' OR ( Ucret < 3000 AND PerNo < 5 ) 
-/* NOT({4,5,7}) AND {4,5,8,9} OR ({1,2,5,8,9,} AND {1,2,3,4})
+SELECT Perno FROM Personeller WHERE NOT(Gorev IN ('Mudur','Sef')) AND Ad LIKE '%e%' OR ( Ucret < 3000 AND PerNo < 5 )
+/*
+   NOT({4,5,7}) AND {4,5,8,9} OR ({1,2,5,8,9,} AND {1,2,3,4})
    {1,2,3,6,8,9}  AND  {4,5,8,9}  OR  {1,2}
    {8,9}  OR  {1,2}
    {1,2,8,9}
@@ -148,12 +156,12 @@ SELECT * FROM Personeller WHERE adi LIKE '%ert'
 
 -- İsmin ilk harfi 'r' son harfi 't' olan personeli göster.
 SELECT * FROM Personeller WHERE adi LIKE 'r%t'
-SELECT * FROM Personeller WHERE adi LIKE 'r%' AND adi LIKE '%t' 
+SELECT * FROM Personeller WHERE adi LIKE 'r%' AND adi LIKE '%t'
 
 -- İsmin baş harfi 'n' olan ve içinde 'an' geçen personeli göster.
 SELECT * FROM Personeller WHERE adi LIKE 'n%an%'
 
------------- _ (Özel Önemli Deðil Operatörü) ------------
+------------ _ (Özel Önemli Değil Operatörü) ------------
 
 -- İsmin ilk harfi 'a', ikinci harfi önemli değil, üçüncü harfi 'd' olan personeli göster.
 SELECT * FROM Personeller WHERE adi LIKE 'a_d%'
@@ -174,7 +182,7 @@ SELECT * FROM Personeller WHERE adi LIKE '%[ai]%'
 --İsmin baş harfi 'a' ile 'k' arasındaki personelleri yazdır.
 SELECT * FROM Personeller WHERE adi LIKE '[*a-k*]%'
 
------------- [^ifade] (Deðil Operatörü) ------------
+------------ [^ifade] (Değil Operatörü) ------------
 
 -- İsmin baş harfi 'an' olmayan personelleri listele.
 SELECT * FROM Personeller WHERE adi LIKE '[^an]%'
@@ -182,9 +190,10 @@ SELECT * FROM Personeller WHERE adi LIKE '[^an]%'
 
 **Not:** Like koşulunun içerisindeki ifade büyük küçük harfe duyarlı değildir. Dolayısı ile '%Alperen' ile '%ALPEREN%' aynı sonucu getirecektir.
 
-###  Like Sorgusunda Escape(Kaçış) Karakteri
+### Like Sorgusunda Escape(Kaçış) Karakteri
 
-Like sorgularında kullandığımız _ , %  gibi özel ifadeler verilerimiz içerisinde geçiyorsa bu problemi iki şekilde çözeriz:
+Like sorgularında kullandığımız \_ , % gibi özel ifadeler verilerimiz içerisinde geçiyorsa bu problemi iki şekilde çözeriz:
+
 1. [] operatörü ile
 2. escape komutu ile
 
@@ -195,6 +204,11 @@ SELECT * FROM Personeller WHERE adi LIKE 'a_%' ESCAPE 'a'
 SELECT * FROM Personeller WHERE SoyAdi LIKE '^%%' ESCAPE '^'
 ```
 
+## Top(n) Komutu
 
+Sorgudan gelen ilk n kaydı ifade eder.
 
-
+```sql
+SELECT TOP 10 * FROM Personeller
+SELECT TOP 10 adi FROM Personeller
+```

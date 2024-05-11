@@ -39,7 +39,7 @@ SELECT LOWER(Adi) FROM personeller
 
 -- SUBSTRING : Belirtilen sıra numarasından itibaren belirtilen sayıda karakter getirir. Sıra numarası 1 den başlar.
 SELECT 'Alperen', SUBSTRING('Alperen', 2, 5) -- Sonuç: 'lpere'
-SELECT Soyadi, SUBSTRING(SoyAdi,2,5) FROM Personeller -- 2. karakterden itibaren 5 karakteri getirir
+SELECT Soyadi, SUBSTRING(SoyAdi, 2, 5) FROM Personeller -- 2. karakterden itibaren 5 karakteri getirir
 
 -- LTRIM : Soldan boşlukları siler.
 SELECT '          Alperen'
@@ -76,10 +76,10 @@ SELECT MusteriAdi , SUBSTRING(MusteriAdi, CHARINDEX(' ',MusteriAdi), LEN(Musteri
 ## Sayısal Değer İşlemleri ve Sayısal Fonksiyonlar
 
 ```sql
-SELECT 2+5
-SELECT 3-6
-SELECT 3*4
-SELECT 12/6
+SELECT 2 + 5
+SELECT 3 - 6
+SELECT 3 * 4
+SELECT 12 / 6
 
 -- PI = Pi sayısını verir.
 SELECT PI()
@@ -126,13 +126,13 @@ SELECT GETDATE()
 -- DATEADD : Verilen tarihe verildiği kadar gün , ay ve yıl ekler.
 SELECT DATEADD(DAY, 100, GETDATE())
 SELECT DATEADD(MONTH, 100, GETDATE())
-SELECT DATEADD(YEAR, 100, '07.05.2000') -- Syntax = ay/gün/yıl  Viev = yıl/ay/gün
+SELECT DATEADD(YEAR, 100, '07.20.2000') -- Syntax = ay/gün/yıl  Viev = yıl/ay/gün
 
 -- DATEDIFF : İki tarih arasında günü , ayı veya yılı hesaplar.
-SELECT DATEDIFF(DAY,'07.05.2018',GETDATE())
-SELECT DATEDIFF(MONTH,'07.05.2018',GETDATE()) -- Çıktı: 68
-SELECT DATEDIFF(MONTH,GETDATE(),'07.05.2018') -- Çıktı: -68
-SELECT DATEDIFF(YEAR,'07.05.2018',GETDATE())
+SELECT DATEDIFF(DAY, '07.05.2018', GETDATE())
+SELECT DATEDIFF(MONTH, '07.05.2018', GETDATE()) -- Çıktı: xxx
+SELECT DATEDIFF(MONTH, GETDATE(), '07.05.2018') -- Çıktı: -xxx
+SELECT DATEDIFF(YEAR, '07.05.2018', GETDATE())
 
 -- DATEPART : Verilen tarihin haftanın ,ayın yahut yılın kaçıncı günü olduğunu hesaplar.
 SELECT
@@ -171,7 +171,7 @@ Birinci parametre olarak verilen kolondaki null değerleri, ikinci parametrede k
 SELECT MusteriAdi, ISNULL(Bolge, 'Bölge bilinmiyor') FROM Musteriler
 ```
 
-##  NullIf Fonksiyonu İle Null Değer Kontrolü
+## NullIf Fonksiyonu İle Null Değer Kontrolü
 
 Fonksiyona verilen birinci parametre, ikinci parametredeki değere eşit ise birinci parametreyi null olarak getirir. Değil ise birinci parametreyi olduğu gibi getirir.
 

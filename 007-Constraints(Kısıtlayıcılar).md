@@ -1,4 +1,3 @@
-
 # Contraints (Kısıtlayıcılar)
 
 Constraints(Kısıtlayıcılar) aracılığı ile tablolar üzerinde istediğimiz şartlar ve durumlara göre kısıtlamalar yapılabilir.
@@ -57,11 +56,11 @@ WITH NOCHECK ADD CONSTRAINT KarMiktari_CheckConstraint CHECK ((KarMiktari * 5) %
 
 ## Primary Key Constraint
 
-Birincil anahtar, tablodaki her bir satırın benzersiz olarak tanımlanmasına izin veren bir sütun veya sütun kombinasyonudur. Bir kolona primary key(birincil anahtar) özelliğini eklemek için  primary key constraint kullanılır. Bu sayede o kolona eklenen primary key ile başka tablolarda foreign key oluşturarak ilişki kurmamız mümkün olur. Bunun yanında o kolonun taşıdığı verilerin tekil olacağıda(unique) garanti edilmiş olur.
+Birincil anahtar, tablodaki her bir satırın benzersiz olarak tanımlanmasına izin veren bir sütun veya sütun kombinasyonudur. Bir kolona primary key(birincil anahtar) özelliğini eklemek için primary key constraint kullanılır. Bu sayede o kolona eklenen primary key ile başka tablolarda foreign key oluşturarak ilişki kurmamız mümkün olur. Bunun yanında o kolonun taşıdığı verilerin tekil olacağıda(unique) garanti edilmiş olur.
 
 Kurallar:
 1- Primary key constraint kullanılan kolon primary key özelliğe sahip olmamalıdır.
-2- Primary key constraint özelliği kullanılacağı zaman o tabloda başka primary key özelliğe sahip kolon olmamalıdır. 
+2- Primary key constraint özelliği kullanılacağı zaman o tabloda başka primary key özelliğe sahip kolon olmamalıdır.
 3- Bir tabloda yalnızca bir primary key olabilir. Ancak, bir primary key birden fazla sütunu içerebilir, bu durumda birden fazla sütunun birleşimi tablodaki her bir satırı benzersiz bir şekilde tanımlar.
 
 ```sql
@@ -82,7 +81,7 @@ ADD CONSTRAINT UrunKimligi_PrimaryKeyConstraint PRIMARY KEY (UrunKimligi, UrunAd
 
 ## Unique Constraint
 
-Tek amacı belirttiğimiz kolondaki verilerin tekil olmasını sağlamaktır. 
+Tek amacı belirttiğimiz kolondaki verilerin tekil olmasını sağlamaktır.
 
 ```sql
 CREATE TABLE OrnekTablo
@@ -99,35 +98,36 @@ ADD CONSTRAINT SatisMiktari_UniqueConstraint UNIQUE (SatisMiktari)
 
 ## Foreign Key Constraint
 
-Tabloların kolonları arasında ilişki kurmamızı sağlar. Bu ilişki neticesinde, foreign key özelliğine sahip kolonda ki karşılığının boşa düşmemesi için primary key özelliğine sahip kolonun bulunduğu tablodan veri silinmesini ve güncellemesini engeller.
+Tabloların kolonları arasında ilişki kurmamızı sağlar. Bu ilişki neticesinde, foreign key özelliğine sahip kolonda ki karşılığının boşa düşmemesi için primary key özelliğine sahip kolonun bulunduğu tablodan veri silinmesini ve güncellenmesini engeller.
 
 ```sql
 CREATE TABLE Erkekler
 (
- BayID INT PRIMARY KEY NOT NULL IDENTITY(1,1),  
+ BayID INT PRIMARY KEY NOT NULL IDENTITY(1,1),
  BayanID INT,
  BayAdSoyad NVARCHAR(MAX),
 )
 
 CREATE TABLE Bayanlar
 (
-BayanID INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+Bayan_ID INT PRIMARY KEY NOT NULL IDENTITY(1,1),
 BayanAdSoyad NVARCHAR(MAX)
 )
 
 ALTER TABLE Erkekler
-ADD CONSTRAINT BayanID_ForeignKeyConstraint FOREIGN KEY (BayanID) REFERENCES Bayanlar(BayanID)
+ADD CONSTRAINT BayanID_ForeignKeyConstraint FOREIGN KEY (BayanID) REFERENCES Bayanlar(Bayan_ID)
 ```
+
 ## Identity Kullanımı
 
-Belirlenen kolonun otomatik olarak artması için kullanılır. Identity özelliği her tablo için bir kez kullanılabilir. 
+Belirlenen kolonun otomatik olarak artması için kullanılır. Identity özelliği her tablo için bir kez kullanılabilir.
 
 Kullanım Prototipi: IDENTITY([Başlangıç parametresi], [artış parametresi])
 
 ```sql
 CREATE TABLE Erkekler
 (
- BayID INT PRIMARY KEY NOT NULL IDENTITY(1,1),  
+ BayID INT PRIMARY KEY NOT NULL IDENTITY(1,1),
  BayanID INT,
  BayAdSoyad NVARCHAR(MAX),
 )
@@ -140,9 +140,9 @@ ALTER TABLE Erkekler
 DROP CONSTRAINT BayanID_ForeignKeyConstraint
 ```
 
-## Cacade Komutu
+## Cascade Komutu
 
-Bu komut ile ana tablodaki(Primary Key - Foreign Key ilişkisinde PK'nın bulunduğu tablo) kayıt silindiğinde yada güncellendiğinde, ilişkili tablodaki karşılığıda otomatik olarak silinir veya güncellenir. 
+Bu komut ile ana tablodaki(Primary Key - Foreign Key ilişkisinde PK'nın bulunduğu tablo) kayıt silindiğinde yada güncellendiğinde, ilişkili tablodaki karşılığıda otomatik olarak silinir veya güncellenir.
 
 ```sql
 ALTER TABLE Erkekler
@@ -153,9 +153,9 @@ ON UPDATE CASCADE -- Güncelleme işleminde diğer tablodaki kayıtta güncellen
 
 ## Set Default Komutu
 
-Ana tablodaki(Primary Key - Foreign Key ilişkisinde PK'nın bulunduğu tablo) kayıt silindiğinde yada güncellendiğinde, ilişkili tablodaki karşılığına o kolonun default değeri basılır. Bu default değer, bizim ilişkili tabloda(FK'nın olduğu tablo) oluşturduğumuz default constraint'tir. 
+Ana tablodaki(Primary Key - Foreign Key ilişkisinde PK'nın bulunduğu tablo) kayıt silindiğinde yada güncellendiğinde, ilişkili tablodaki karşılığına o kolonun default değeri basılır. Bu default değer, bizim ilişkili tabloda(FK'nın olduğu tablo) oluşturduğumuz default constraint'tir.
 
-**Not:** Default olan değer ana tabloda olan bir değer olmalıdır. 
+**Not:** Default olan değer ana tabloda olan bir değer olmalıdır.
 
 ```sql
 ALTER TABLE Erkekler
@@ -172,30 +172,30 @@ ON UPDATE SET DEFAULT
 ```sql
 CREATE TABLE Dersler
 (
-DersKodu CHAR(10) PRIMARY KEY
+    DersKodu CHAR(10) PRIMARY KEY
 )
 
 CREATE TABLE Ogrenci
 (
-OgrNo INT PRIMARY KEY IDENTITY(1,1),
+    OgrNo INT PRIMARY KEY IDENTITY(1,1),
 
--- Unique tanımı için 1. Kullanım
-OgrKimlikNo1 INT NOT NULL UNIQUE,
+    -- Unique tanımı için 1. Kullanım
+    OgrKimlikNo1 INT NOT NULL UNIQUE,
 
--- Unique tanımı için 2. Kullanım
-OgrKimlikNo2 INT CONSTRAINT OgrKimlikNo2Const UNIQUE (OgrKimlikNo2),
+    -- Unique tanımı için 2. Kullanım
+    OgrKimlikNo2 INT CONSTRAINT OgrKimlikNo2Const UNIQUE (OgrKimlikNo2),
 
-DersKodu CHAR(10) FOREIGN KEY REFERENCES Dersler(DersKodu) ON DELETE CASCADE ON UPDATE CASCADE
+    DersKodu CHAR(10) FOREIGN KEY REFERENCES Dersler(DersKodu) ON DELETE CASCADE ON UPDATE CASCADE
 )
 
 CREATE TABLE Personeller
 (
-PerSıraNo INT PRIMARY KEY,    
-PerNo SMALLINT IDENTITY(1,10),
-DogumYeri VARCHAR(15) CONSTRAINT DogumYeri_DefaultConstraint DEFAULT ('İstanbul'),
-Departman CHAR(3) CONSTRAINT Departman_CheckConstraint CHECK ( Departman IN ('MUH','ARG','SAT')), -- NOT: Departman kolonuna 3 kelimeden biri yazılırsa işlem yap komutu
-Boy FLOAT CONSTRAINT Boy_CheckConstraint CHECK (boy>0 and boy<250),
-Kilo FLOAT NOT NULL,
-DogumTarihi SMALLDATETIME CONSTRAINT DogumTarihi_DefaultConstraint DEFAULT (GETDATE()) CONSTRAINT DogumTarihi__CheckConstraint CHECK (DogumTarihi<=GETDATE())
+    PerSıraNo INT PRIMARY KEY,
+    PerNo SMALLINT IDENTITY(1,10),
+    DogumYeri VARCHAR(15) CONSTRAINT DogumYeri_DefaultConstraint DEFAULT ('İstanbul'),
+    Departman CHAR(3) CONSTRAINT Departman_CheckConstraint CHECK ( Departman IN ('MUH','ARG','SAT')), -- NOT: Departman kolonuna 3 kelimeden biri yazılırsa işlem yap komutu
+    Boy FLOAT CONSTRAINT Boy_CheckConstraint CHECK (boy>0 and boy<250),
+    Kilo FLOAT NOT NULL,
+    DogumTarihi SMALLDATETIME CONSTRAINT DogumTarihi_DefaultConstraint DEFAULT (GETDATE()) CONSTRAINT DogumTarihi__CheckConstraint CHECK (DogumTarihi<=GETDATE())
 )
 ```

@@ -1,14 +1,17 @@
-# DDL(Data Definition Language) Komutları (CREATE / ALTER / DROP)
+# DDL Komutları
 
-T-SQL de veritabanı nesnelerini yaratmamızı, bu nesneler üzerinde değişiklikler yapmamızı ve silmemizi sağlayan komutlar bu başlık altında incelenir. 
+## DDL(Data Definition Language) Komutları (CREATE / ALTER / DROP)
+
+T-SQL de veritabanı nesnelerini yaratmamızı, bu nesneler üzerinde değişiklikler yapmamızı ve silmemizi sağlayan komutlar bu başlık altında incelenir.
 
 ## CREATE Komutu
 
-Veri tabanı nesnesi yaratmamızı sağlar. (databases,table,view,storedprocedure,trigger vs) 
+Veritabanı nesnesi(databases,table,view,storedprocedure,trigger vs) yaratmamızı sağlar.
 
 Kullanım Prototipi: CREATE [NESNE] [NESNE_ADI]
 
 1. Veritabanı Oluşturma:
+
 ```sql
 -- Aşağıdaki komut veritabanını varsayılan ayarlarda oluşturur.
 CREATE DATABASE  Db_Education
@@ -28,7 +31,7 @@ filegrowth = 5
 -- FILEGROWTH: Veritabanının boyutu başlangıç boyutunu geçtiği durumda boyutun nekadar artması gerektiğini MB cinsinden belirtilir.
 ```
 
-**Not:** Sadece veritabanı oluşturulduğunda log dosyasıda varsayılan ayarlarda arka tarafta oluşturulur. Aşağıdaki komut ile varsayılan ayarlar değiştirilerekte log dosyası oluşturulabilir:
+**Not:** Sadece veritabanı oluşturulduğunda log dosyasıda varsayılan ayarlarda arka tarafta oluşturulur. Aşağıdaki örnek ile varsayılan ayarlar değiştirilerekte log dosyası oluşturulabilir.
 
 ```sql
 CREATE DATABASE  Db_Education ON
@@ -51,7 +54,7 @@ FILEGROWTH = 5
 
 ```sql
 CREATE TABLE Ogrenci
-(               
+(
 [Ogrenci No] VARCHAR(4),    -- Değişken ismi boşluk içeriyorsa köşeli parantez kullanılır.
 OgrenciAd VARCHAR(10),
 OgrenciSoyad VARCHAR(20),
@@ -62,7 +65,7 @@ OgrenciBilgi TEXT NULL
 
 ## ALTER Komutu
 
-Daha önceden oluşturulmuş olan bir veritabanı nesnesinin yapısal özelliklerinin değiştirilmesi için kullanılan komuttur. 
+Daha önceden oluşturulmuş olan bir veritabanı nesnesinin(databases,table,view,storedprocedure,trigger vs) yapısal özelliklerinin değiştirilmesi için kullanılan komuttur.
 
 Kullanım Prototipi: ALTER [NESNE] [NESNE_ADI] ...
 
@@ -70,14 +73,11 @@ Kullanım Prototipi: ALTER [NESNE] [NESNE_ADI] ...
 
 ```sql
 ALTER DATABASE  Db_Education  -- Fiziksel veritabanı ismini "Turkey" ve veritabanının başlangıç boyutunu 20M yapar.
-MODIFY FILE				              
+MODIFY FILE  -- MODIFY FILE komutu veritabanında güncelleme yapmak için kullanılır.
 (
-NAME = 'Turkey',                
+NAME = 'Turkey',
 SIZE = 20
 )
-
--- MODIFY FILE komutu veritabanında güncelleme yapmak için kullanılır.
-
 ```
 
 2. ALTER İle Tabloya Sütun Ekleme:
@@ -112,7 +112,7 @@ SP_RENAME 'OgrenciBilgileri.[Ogr No]','OgrNo','column'
 
 ## DROP Komutu
 
-Daha önceden oluşturulmuş olan bir veritabanı nesnesinin silinmesi için kullanılan komuttur.
+Daha önceden oluşturulmuş olan bir veritabanı nesnesinin(databases,table,view,storedprocedure,trigger vs) silinmesi için kullanılan komuttur.
 
 Kullanım Prototipi: DROP [NESNE] [NESNE_ADI]
 
