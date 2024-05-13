@@ -15,8 +15,8 @@ DECLARE @a INT , @b NVARCHAR(5)
 DECLARE @y INT = 100
 PRINT @y
 
-SET Komutu Kullanarak Değişkene Değer Atama
-DECLARE @x
+-- SET Komutu Kullanarak Değişkene Değer Atama
+DECLARE @x INT
 SET @x = 400
 PRINT @x
 
@@ -32,8 +32,8 @@ PRINT @enYuksekFiyat
 
 -- Sorgu sonucu gelen verileri değişkenlere atama
 -- Kurallar:
--- 1. Sorgu sonucu gelen satır sayısı 1 olmalıdır.
--- 2. Kolonlardaki veri tipleri ne ise değişkenlerinde veri tipi o olmalıdır.
+-- 1. Kural: Sorgu sonucu gelen satır sayısı 1 olmalıdır.
+-- 2. Kural: Kolonlardaki veri tipleri ne ise değişkenlerinde veri tipi o olmalıdır.
 
 DECLARE @Isim NVARCHAR(MAX) , @SoyIsim NVARCHAR(MAX)
 SELECT @Isim = Adi , @SoyIsim = SoyAdi FROM Personeller WHERE PersonelID = 7
@@ -65,8 +65,13 @@ SELECT @sayac As Mod_8 -- Çıktı: 2
 Öncesini veya kendinden önceki GO komutuna kadar olan kısmı tek seferde çalıştırarak tek bir execution plan olarak SQL Server'a gönderirir. GO komutundan önce tanımlanan bir değişken GO komutundan sonra kullanılamaz. Çünkü go komutu daha önceki kod yığınının sona erdiğini belirtmektedir.
 
 ```sql
--- Örnek 1 (Hata Oluşur)
+-- Örnek 1 - Aşağıadaki örnekte veritabanı bulunamadı şeklinde hata fırlatır. Çünkü
+-- bu işlemler iki ayrı işlemdir ve editöre bunu go komutu ile ifade etmemiz gerekir.
 CREATE DATABASE OrnekDB
+USE OrnekDB
+
+CREATE DATABASE OrnekDB
+GO
 USE OrnekDB
 
 -- Örnek 2
@@ -81,10 +86,11 @@ kolon2 NVARCHAR(5)
 )
 GO
 INSERT INTO OrnekTablo(kolon1) VALUES (100)
-GO 
+GO
 SELECT * FROM OrnekTablo
 
--- Örnek 3 (Hata Oluşur)
+-- Örnek 3 - Aşağıdaki işlem hatalıdır. Çünkü değişken başka bir planda tanımlanmış,
+-- ekrana bastırma işlemi ise başka bir planda tanımlanmıştır.
 DECLARE @x INT = 5
 GO
 PRINT @x
@@ -127,6 +133,8 @@ WHILE @Sayac < 100
 
 ## Break Komutu
 
+Break komutu döngüyü sonlandırır.
+
 ```sql
 -- Örnek 1
 DECLARE @Sayac INT = 0
@@ -154,6 +162,8 @@ WHILE @Sayac < 100
 
 ## Continue Komutu
 
+Continue komutu bir sonraki iterasyon için döngünün başına atlar.
+
 ```sql
 DECLARE @Sayac INT = 0
 WHILE @Sayac < 100
@@ -169,7 +179,7 @@ WHILE @Sayac < 100
 
 ```sql
 -- Örnek 1
-SELECT Adi , SoyAdi ,KıdemBilgisi = 
+SELECT Adi , SoyAdi ,KıdemBilgisi =
 CASE
 WHEN BagliCalistigiKisi < 2 THEN 'Üst Kademe Çalışan'
 WHEN BagliCalistigiKisi >= 2 AND BagliCalistigiKisi < 5 THEN 'Orta Kademe Çalışan'
@@ -205,7 +215,7 @@ END
 
 ## Exists / Not Exists Fonksiyonu
 
-* İfadeyi boolean bir değere döndürür.
+- İfadeyi boolean bir değere döndürür.
 
 ```sql
 USE Northwind
@@ -214,24 +224,29 @@ IF EXISTS(SELECT * FROM Personeller)
 	PRINT 'DOLU'
 ELSE
 	PRINT 'BOŞ'
+
+IF NOT EXISTS(SELECT * FROM Personeller)
+	PRINT 'DOLU'
+ELSE
+	PRINT 'BOŞ'
 ```
 
-* Exists ve not exists ifadeleride alt sorgudan getirilen değerlerin içerisinde bir değerin olması veya olmaması durumunda işlem yapılmasını sağlar.  "EXIST" kullanımı "IN" kullanımı ile aynı sonucu verir. "NOT EXIST" kullanımı "NOT IN" kullanımı ile aynı sonucu verir.
+- Exists ve not exists ifadeleri de alt sorgudan getirilen değerlerin içerisinde bir değerin olması veya olmaması durumunda işlem yapılmasını sağlar. "EXIST" kullanımı "IN" kullanımı ile aynı sonucu verir. "NOT EXIST" kullanımı "NOT IN" kullanımı ile aynı sonucu verir.
 
 ```sql
 USE Northwind
 
 INSERT Personeller(Adi, SoyAdi) VALUES ('Alperen', 'Bektaşoğlu')
 
--- EXISTS Örneği: Satışlar tablosunda PersonelID'si bulunan personelleri Personeller tablosundan getirir. (Satış yapan personelleri getir.) 
-SELECT * FROM Personeller AS P WHERE 
+-- EXISTS Örneği: Satışlar tablosunda PersonelID'si bulunan personelleri Personeller tablosundan getirir. (Satış yapan personelleri getir.)
+SELECT * FROM Personeller AS P WHERE
 EXISTS(SELECT * FROM Satislar AS S WHERE P.PersonelID = S.PersonelID)
 
 -- IN Örneği:
 SELECT * FROM Personeller WHERE PersonelID IN (SELECT PersonelID FROM Satislar)
 
 -- NOT EXISTS Örneği: Satışlar tablosunda PersonelID'si bulunmayan personelleri Personeller tablosundan getirir. (Satış yapmayan personelleri getir)
-SELECT * FROM Personeller AS P WHERE 
+SELECT * FROM Personeller AS P WHERE
 NOT EXISTS(SELECT * FROM Satislar AS S WHERE P.PersonelID = S.PersonelID)
 
 --NOT IN Örneği:
@@ -274,14 +289,10 @@ END CATCH
 ```
 
 ERROR_SEVERITY() fonksiyonunda hata dereceleri aşağıdaki gibidir:
-* 0 veya 10 : Kullanıcı veri girişinden kaynaklanan hatalar
-* 11-16 arası: Kullanıcının düzeltebileceği hatalar
-* 17 : Yetersiz kaynak hataları (Diskin dolu olması ya da tablonun salt okunur olması gibi)
-* 18 : Yazılımdan kaynaklanan hatalar
-* 19 : Constraintlere takılan hatalar
-* 20-25 arası: Kritik hatalar
 
-
-
-
-
+- 0 veya 10 : Kullanıcı veri girişinden kaynaklanan hatalar
+- 11-16 arası: Kullanıcının düzeltebileceği hatalar
+- 17 : Yetersiz kaynak hataları (Diskin dolu olması ya da tablonun salt okunur olması gibi)
+- 18 : Yazılımdan kaynaklanan hatalar
+- 19 : Constraintlere takılan hatalar
+- 20-25 arası: Kritik hatalar

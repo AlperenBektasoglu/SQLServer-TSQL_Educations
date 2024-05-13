@@ -1,8 +1,8 @@
-
 # Temel Sql Komutları
 
 ## Top Komutu
-SELECT TOP komutu, çağırılacak verilerin sayısını belirtmek için kullanılır. Tüm veritabanı sistemleri SELECT TOP komutunu desteklemez. MySQL sınırlı sayıda veri seçmek için LIMIT komutunu desteklerken, Oracle ROWNUM kullanır.
+
+SELECT TOP komutu, çağırılacak verilerin sayısını belirtmek için kullanılır. Tüm veritabanı sistemleri SELECT TOP komutunu desteklemez. MySQL sınırlı sayıda veri seçmek için LIMIT komutunu desteklerken, Oracle ROWNUM komutunu kullanır.
 
 ```sql
 USE Northwind
@@ -13,7 +13,7 @@ SELECT TOP 3 * FROM Personeller
 
 ```sql
 USE Db_Education
-UPDATE TOP(2) DenemePersoneller SET Isım = 'Boş' 
+UPDATE TOP(2) DenemePersoneller SET Isım = 'Boş'
 ```
 
 ### Top Komutu İle Delete İşlemi
@@ -24,7 +24,7 @@ DELETE TOP(5) FROM DenemePersoneller
 
 ## Distinct Komutu
 
-Bir kolondaki benzer olan verileri teke indirmemizi sağlayan komuttur. 
+Bir kolondaki benzer olan verileri teke indirmemizi sağlayan komuttur.
 
 ```sql
 USE Northwind
@@ -55,7 +55,7 @@ SELECT * FROM Satislar
 SELECT PersonelID , SUM(NakliyeUcreti) FROM Satislar GROUP BY PersonelID
 ```
 
-Group By İşleminde Where Şartı Yazma: Where komutu group by komutundan önce yazılır. Where komutu kolonlardaki şartlar için kullanılır.
+Group By İşleminde Where Şartı Yazma: Where komutu Group By komutundan önce yazılır. Where komutu kolonlardaki şartlar için kullanılır.
 
 ```sql
 SELECT KategoriID , COUNT(*) FROM Urunler WHERE KategoriID > 5 GROUP BY KategoriID
@@ -63,7 +63,7 @@ SELECT KategoriID , COUNT(*) FROM Urunler WHERE KategoriID > 5 GROUP BY Kategori
 
 ## Having Komutu
 
-Group by komutundan sonra yazılır ve her zaman group by ile birlikte kullanılır. Having komutu aggregate fonksiyonlarında ki şartlar için yazılır.
+Group By komutundan sonra yazılır ve her zaman Group By ile birlikte kullanılır. Having komutu aggregate fonksiyonlarında ki şartlar için yazılır.
 
 ```sql
 -- Örnek 1
@@ -75,28 +75,35 @@ SELECT PersonelID , SUM(NakliyeUcreti) FROM Satislar GROUP BY PersonelID HAVING 
 
 ## With Rollup Komutu
 
-Group By ile gruplandırılmış veri kümesinde ara toplam alınmasını sağlar. 
+Group By ile gruplandırılmış veri kümesinde ara toplam alınmasını sağlar.
 
 ```sql
--- Örnek 1 (10252 numaralı satış id'lerindeki bütün ürünlerin toplam miktarını toplayan ve bunu sorguya yeni bir satır ekleyerek gösteren bir örnektir.)
--- Aşağıdaki örnekte aslında 10252 numaralı satış id'lerine karşılık gelen SUM(Miktar) değerlerini topayıp, yeni satır olarak sonuca ekledi.
-SELECT SatisID, UrunID, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID, UrunID WITH ROLLUP WHERE SatisID = 10252
+-- Örnek 1 - Aşağıdaki örnekte satış id bazında SUM(Miktar) değerleri bulunduktan sonra, SUM(Miktar) değerlerini toplayıp(ara toplam) oluşan ara toplamı yeni satır olarak sonuç kümesine ekler.
+SELECT SatisID, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID WITH ROLLUP
 
--- Örnek 2 (With Rollup komutunun Having komutu ile kullanılması)
+-- Örnek 2 - Aşağıdaki örnekte satış id ve ürün id'lere göre veriyi grupladıktan sonra satış id bazında oluşan SUM(Miktar) değerlerini toplayıp (ara toplam), oluşan ara toplamı yeni satır olarak sonuç kümesine ekler.
+SELECT SatisID, UrunID, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID, UrunID WITH ROLLUP
+
+-- Örnek 3 (With Rollup komutunun Having komutu ile kullanılması)
 SELECT SatisID, UrunID, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID, UrunID WITH ROLLUP HAVING SUM(Miktar) > 100
 ```
 
 ## With Cube Komutu
 
-Group By ile gruplandırılmış veri kümesinde teker teker toplam alınmasını sağlar. With Rollup ile aslında SatisID alanına göre SUM(Miktar) değerleri toplanıp yeni satır olarak eklendi. With Cube ile aslında UrunID alanına göre SUM(Miktar) değerleri toplanıp yeni satır olarak eklendi.
+With Cube ifadesinde verilen tüm sütunların birbirleri olan tüm kombinasyonları için toplamları gösteren bir sonuç kümesi oluşturur. Group By ifadesi ile iki kolona göre gruplandığını varsayarsak, Cube ifadesi 1.kolon ve 2.kolon için oluşan tüm kombinasyonlar için bir ara toplam getiriyor. 1.kolon için 2.kolon ile birlikte oluşacak tüm kombinasyonlara bir ara toplam, 2.kolon için 1.kolon ile birlikte oluşacak tüm kombinasyonlara bir ara toplam, ayrıca sadece 1.kolon bazında toplam ve sadece 2.kolon bazında toplam ve son olarakta genel toplam döndürüyor.
 
 ```sql
 -- Örnek 1
 SELECT SatisID, UrunID, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID, UrunID WITH CUBE
 
--- Örnek 2 (With Rollup komutunun Having komutu ile kullanılması)
+-- Örnek 2
+SELECT SatisID, UrunID, BirimFiyati, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID, UrunID, BirimFiyati WITH CUBE
+
+-- Örnek 3 (With Rollup komutunun Having komutu ile kullanılması)
 SELECT SatisID, UrunID, SUM(Miktar) FROM [Satis Detaylari] GROUP BY SatisID, UrunID WITH CUBE HAVING SUM(Miktar) > 100
 ```
+
+Kaynak: [Link](https://fatihsariyildiz.wordpress.com/2011/02/27/sql-cube-rollup-kullanimi/)
 
 ## Order By Komutu
 
@@ -125,28 +132,16 @@ SELECT * FROM [Satis Detaylari] WHERE Miktar >= 100 ORDER BY UrunID ASC
 WITH TIES, TOP ve ORDER BY ile birlikte kullanılır. ORDER BY ile sıralanan sonuçlarda son kayıt ile aynı değerde olan kayıtların da listelenmesini sağlar. Bu durumda sonuç belirtilen n sayısından daha fazla olabilir. WITH TIES sadece ORDER BY ile birlikte kullanılmaktadır.
 
 ```sql
--- Aşağıdaki yapıda “Satis Detayları” adlı tablodan ilk 6 veri gelecektir.Ancak bu verilerden sonuncu olanı “10250” nolu kayıtın iki adeti dışarda kalmaktadır.Bu ikisinide getirmek için “WITH TIES” yapısını kullanmaktayız. With Ties order by ile sıralanmış kolonda, en son kayda bakar, eğer onun altında aynı nolu kayıt varsa onu da getirir. Bu yapıyı kullanabilmek için tek şart order by kullanılmalıdır.
+-- Aşağıdaki yapıda “Satis Detayları” adlı tablodan ilk 6 veri gelecektir. Ancak bu verilerden sonuncu olanı “10250” nolu kayıtın iki adeti dışarda kalmaktadır.Bu ikisinide getirmek için “WITH TIES” yapısını kullanmaktayız. With Ties order by ile sıralanmış kolonda, en son kayda bakar, eğer onun altında aynı nolu kayıt varsa onu da getirir. Bu yapıyı kullanabilmek için tek şart order by kullanılmalıdır.
 
-SELECT TOP 6 * FROM [Satis Detaylari] 
+SELECT TOP 6 * FROM [Satis Detaylari] ORDER BY SatisID
 
-SELECT TOP 6 WITH TIES * FROM [Satis Detaylari] 
+SELECT TOP 6 WITH TIES * FROM [Satis Detaylari] ORDER BY SatisID
 ```
 
 ## Toplu Kullanım
 
 ```sql
-SELECT KategoriID, TedarikciID, COUNT(*) FROM Urunler WHERE KategoriID < 5 
+SELECT KategoriID, TedarikciID, COUNT(*) FROM Urunler WHERE KategoriID < 5
 GROUP BY KategoriID, TedarikciID HAVING COUNT(*) < 4 ORDER BY KategoriID DESC
 ```
-
-
-
- 
-
-
-
-
-
-
-
-

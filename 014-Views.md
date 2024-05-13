@@ -1,19 +1,19 @@
-
 # Views (Sanal Tablolar)
 
 View, bir veya birden fazla tablodan değişik sorgularla çekilmekte olan bilgilerin oluşturduğu sanal sonuç tablolarıdır. View'ların kullanım amaçları aşağıda verilmiştir:
+
 1. Bir kullanıcının bir tablo içerisindeki herşeyi görmesinin istenmediği durumlarda kullanılır.
 2. Bir kullanıcının çok miktarda veri bulunduran bir tablo üzerinde sorgulama yapması yerine view yapısı kullanılabilir. Sorgu işlemlerini daha kolaylaştırmak/hızlandırmak için bu verilerin bir bölümü üzerinde çalışması istendiğinde kullanılır.
-4. Farklı ve karmaşık tablolarda tutulan verilerin tek ve sade bir şekilde görülmesi gerektiğinde view yapısı kullanılabilir.
-5. Kompleks sorguları basitleştirmek gerektiğinde kullanılabilir.
+3. Farklı ve karmaşık tablolarda tutulan verilerin tek ve sade bir şekilde görülmesi gerektiğinde view yapısı kullanılabilir.
+4. Kompleks sorguları basitleştirmek gerektiğinde kullanılabilir.
 
-View içerisinde yapılamayacak işlemler aşağıda verilmiştir: 
-1. İsimsiz bir kolon kullanılamaz. (sql aggregate fonksiyon kullanımından sonra kolon ismi boş gelir.)
-2. Stored procedure yapısı gibi, view içerisinde parametre gönderilemez.
-3. View yapısı içerisinde dml kodları (insert into, update, delete) kullanılamaz.
+View içerisinde yapılamayacak işlemler aşağıda verilmiştir:
+
+1. İsimsiz bir kolon kullanılamaz. (sql aggregate fonksiyon kullanımı ile kolon ismi boş gelir.)
+2. View içerisine parametre gönderilemez.
+3. View yapısı içerisinde dml kodları (insert, update, delete) kullanılamaz.
 4. View yapısı içerisinde, sadece select ile başlayan ifadeler kullanılabilir.
-5. View içerisinde order by (sıralama) fonksiyonu kullanılamaz.
-6. View'ı oluşturan kod bloğunda order by, compute, compute by, into gibi ifadeler bulunamaz.
+5. View'ı oluşturan kod bloğunda order by, compute, compute by, into gibi ifadeler bulunamaz.
 
 ## View Oluşturma
 
@@ -49,7 +49,7 @@ SELECT * FROM OrnekView_3
 -- ORDER BY BagliCalistigiKisi DESC
 
 -- Örnek 5 (Birden Fazla Tablodan Kayıt Çeken View Oluşturma)
-CREATE VIEW OrnekView_5 
+CREATE VIEW OrnekView_5
 AS
 SELECT SirketAdi, MusteriAdi, UrunAdi, UrunID FROM Tedarikciler T INNER JOIN Urunler U ON T.TedarikciID = U.TedarikciID
 ```
@@ -57,10 +57,8 @@ SELECT SirketAdi, MusteriAdi, UrunAdi, UrunID FROM Tedarikciler T INNER JOIN Uru
 ## View'in Yapısını Değiştirme
 
 ```sql
-SELECT * FROM OrnekView_1
-
 ALTER VIEW OrnekView_1
-AS 
+AS
 SELECT Adi FROM Personeller
 ```
 
@@ -76,7 +74,7 @@ sp_helptext OrnekView_1
 SELECT * FROM sys.views
 ```
 
-##  View Kodunun Şifrelenmesi / With Encryption Komutu
+## View Kodunun Şifrelenmesi / With Encryption Komutu
 
 ```sql
 CREATE VIEW OrnekView_6 WITH ENCRYPTION

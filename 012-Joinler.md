@@ -1,9 +1,8 @@
-
 # Joinler
 
 ## Inner Join Yapısı
 
-İlişkili tabloları birleştirmek için kullanılır. Her iki tablodaki ortak kayıtları döndürür. İki kümenin kesişimidir.
+İlişkili tabloları yan yana birleştirmek için kullanılır. Her iki tablodaki ortak kayıtları döndürür. İki kümenin kesişimidir.
 
 ```sql
 CREATE TABLE Ders
@@ -59,7 +58,8 @@ SELECT UrunAdi FROM Urunler AS U INNER JOIN Kategoriler AS K ON U.KategoriID = K
 
 ```sql
 -- 1997 Yılından sonra Nancy kişisinin satış yaptığı firmaların isimleri nelerdir? (Personeller, Satışlar, Musteriler)
-SELECT * FROM Personeller P INNER JOIN Satislar S ON P.PersonelID = S.PersonelID
+SELECT * FROM Personeller P
+INNER JOIN Satislar S ON P.PersonelID = S.PersonelID
 INNER JOIN Musteriler M ON S.MusteriID = M.MusteriID
 WHERE P.Adi = 'Nancy' AND YEAR(S.SatisTarihi) > 1997
 ```
@@ -68,23 +68,26 @@ WHERE P.Adi = 'Nancy' AND YEAR(S.SatisTarihi) > 1997
 
 ```sql
 -- Limited şirket olan tedarikçilerden alınmış seafood kategorisindeki ürünlerin toplam satış tutarı nedir? (Kategoriler, Urunler, Tedarikciler)
-SELECT SUM(U.HedefStokDuzeyi * U.BirimFiyati) FROM Kategoriler K INNER JOIN Urunler U ON K.KategoriID = U.KategoriID
+SELECT SUM(U.HedefStokDuzeyi * U.BirimFiyati) FROM Kategoriler K
+INNER JOIN Urunler U ON K.KategoriID = U.KategoriID
 INNER JOIN Tedarikciler T ON U.TedarikciID = T.TedarikciID
 WHERE T.SirketAdi LIKE '%Ltd.%' AND K.KategoriAdi = 'Seafood'
 ```
 
- ### Recursive İlişki
+### Recursive İlişki
+
 Aynı tabloyu ilişkisel olarak inner join ile birleştirme:
 
 ```sql
 -- Personelleri ve Personellerin bağlı olarak çallıştığıtı kişilerin isimlerini listele.
-SELECT * FROM Personeller P1 INNER JOIN Personeller P2 
+SELECT * FROM Personeller P1
+INNER JOIN Personeller P2
 ON P1.BagliCalistigiKisi = P2.PersonelID
 ```
 
 ## Left Outher Join Yapısı
 
-İlişkili tabloları birleştirmek için kullanılır. JOIN ifadesinin Solundaki tablodan bütün kayıtları getirir, sağındaki tablodan sadece eşleşen kayıtları getirir ve oluşan tabloda boş olan kolonlara	"NULL" değeri atar. 
+İlişkili tabloları yan yana birleştirmek için kullanılır. JOIN ifadesinin solundaki tablodan bütün kayıtları getirir, sağındaki tablodan sadece eşleşen kayıtları getirir ve oluşan tabloda boş olan kolonlara "NULL" değeri atar.
 
 **Not:** Eskiden Joinler outher kelimesi ile kullanılırdı ama günümüzde outher kelimesini kullanmaya gerek yok.
 
@@ -98,7 +101,7 @@ SELECT * FROM Ogrenci O LEFT JOIN Ders D ON O.DersID = D.DersID
 
 ## Right Outher Join Yapısı
 
-İlişkili tabloları birleştirmek için kullanılır. Join ifadesinin sağındaki tablodan bütün kayıtları getirir, solundaki tablodan sadece eşleşen kayıtları getirir ve oluşan tabloda boş olan kolonlara	"NULL" değeri atar. 
+İlişkili tabloları yan yana birleştirmek için kullanılır. Join ifadesinin sağındaki tablodan bütün kayıtları getirir, solundaki tablodan sadece eşleşen kayıtları getirir ve oluşan tabloda boş olan kolonlara "NULL" değeri atar.
 
 ```sql
 SELECT * FROM Ders D RIGHT OUTER JOIN Ogrenci O ON D.DersID = O.DersID
@@ -108,7 +111,7 @@ SELECT * FROM Ogrenci O RIGHT OUTER JOIN Ders D ON O.DersID = D.DersID
 
 ## Full Outher Join Yapısı
 
-İlişkili tabloları birleştirmek için kullanılır. Join ifadesinin iki tarafındaki tablolarda eşleşen eşleşmeyen ne varsa getirir ve oluşan tabloda boş olan kolonlara	"NULL" değeri atar. 
+İlişkili tabloları birleştirmek için kullanılır. Join ifadesinin iki tarafındaki tablolarda eşleşen eşleşmeyen ne varsa getirir ve oluşan tabloda boş olan kolonlara "NULL" değeri atar.
 
 ```sql
 SELECT * FROM Ders D  FULL OUTER JOIN Ogrenci O ON D.DersID = O.DersID
@@ -118,9 +121,9 @@ SELECT * FROM Ogrenci O FULL JOIN Ders D ON O.DersID = D.DersID
 
 ## Cross Join Yapısı
 
-İki tablonun kartezyen çarpımını alır. Kısacası iki tablonun kombinasyonunu alır. 
+İki tablonun kartezyen çarpımını alır. Kısacası iki tablonun kombinasyonunu alır.
 
-Kartezyen Çarpımı: A ve B herhangi iki küme olsun. Birinci bileşeni A' dan, ikinci bileşeni B' den alınarak oluşturulabilecek tüm sıralı ikililerin kümesine, A ile B' nin kartezyen çarpımı denir ve A x B biçiminde gösterilir. Buna göre; 
+Kartezyen Çarpımı: A ve B herhangi iki küme olsun. Birinci bileşeni A' dan, ikinci bileşeni B' den alınarak oluşturulabilecek tüm sıralı ikililerin kümesine, A ile B' nin kartezyen çarpımı denir ve A x B biçiminde gösterilir. Buna göre;
 
 Örnek: Aynı futbol takımında oynayan Ali, Sertaç ve Tamer, 7, 10 ve 11 numaralı formaları giyebilirler.
 
@@ -131,7 +134,7 @@ B kümesi B = { 7 , 10 , 11 }
 A X B = { (Ali, 7 ), (Ali, 10), (Ali, 11 ), (Sertaç,7 ), (Sertaç,10 ), (Sertaç,11 ), (Tamer, 7 ), (Tamer, 10 ), (Tamer, 11 ) }
 
 ```sql
-USE Northwind 
+USE Northwind
 
 SELECT COUNT(*) FROM Personeller -- 9 Satır
 SELECT COUNT(*) FROM Bolge --4 Satır
@@ -158,7 +161,7 @@ HAVING COUNT(S.SatisID) > 50
 -- Her personelin toplam satış miktarını bulun? (Personeller, Satislar)
 SELECT P.Adi , P.SoyAdi , COUNT(S.SatisID) FROM Personeller P INNER JOIN Satislar S
 ON P.PersonelID = S.PersonelID
-GROUP BY P.Adi , P.SoyAdi 
+GROUP BY P.Adi , P.SoyAdi
 ORDER BY COUNT(S.SatisID) DESC
 
 -- En çok satış yapan personel kimdir? (Personeller, Satislar)
@@ -233,6 +236,7 @@ Select Ad From tablo1
 ## Union Komutu
 
 Birden fazla select sorgusu sonucunu tek seferde alt alta göstermemizi sağlar. Joinler yan yana, Union alt alta tabloları birleştirir. Joinlerde belirli(ilişkisel) kolon üzerinden birleştirme yapılırken, union da böyle bir durum söz konusu değildir. Dikkat edilmesi gerekenler:
+
 1. Union sorgusu sonucu oluşan tablonun kolon isimleri, üstteki tablonun kolon isimlerinden oluşur.
 2. Üstteki sorgudan kaç kolon çekilmiş ise alttaki sorgudan da o kadar kolon çekilmek zorundadır.
 3. Üstteki sorgudan çekilen kolonların tipleri ile alttaki sorgudan çekilen kolonların tipleri uyumlu olmalıdır.
@@ -266,7 +270,7 @@ SELECT MusteriAdi, MusteriUnvani, 'Müşteri' FROM Musteriler
 
 ## Union All Komutu
 
-Union tekrarlı kayıtları getirmez. Tekrarlı kayıtları getirmek için Union All komutu kullanılır. 
+Union tekrarlı kayıtları getirmez. Tekrarlı kayıtları getirmek için Union All komutu kullanılır.
 
 ```sql
 SELECT Adi, SoyAdi FROM Personeller
