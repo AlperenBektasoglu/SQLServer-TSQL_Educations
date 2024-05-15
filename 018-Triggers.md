@@ -1,17 +1,18 @@
-
 # Triggers(Tetikleyiciler)
 
 Triggerlar iki ye ayrılır:
+
 1. DDL Trigger
 2. DML Trigger
 
 Triggerlar çalışma mantığı açısından da ikiye ayrılırlar:
-1. İşlem sonucunda çalışan triggerlar  -- AFTER/FOR
-2. İşlemin yerine çalışan triggerlar   -- INSTEAD OF 
+
+1. İşlem sonucunda çalışan triggerlar -- AFTER/FOR
+2. İşlemin yerine çalışan triggerlar -- INSTEAD OF
 
 ## DDL Trigger
 
-Create, alter ve drop işlemleri sonucunda devreye giren yapılardır. Bu işlemler sonucunda veya sürecinde devreye girerler. 
+Create, alter ve drop işlemleri sonucunda devreye giren yapılardır. Bu işlemler sonucunda veya sürecinde devreye girerler.
 
 ```sql
 -- Kullanım Protitipi:
@@ -19,11 +20,12 @@ Create, alter ve drop işlemleri sonucunda devreye giren yapılardır. Bu işlem
 -- ON DATABASE
 -- AFTER/FOR drop_table, alter_table, create_function, create_procedure, drop_procedure ...
 -- AS
--- [Çalışması İstenen Kodlar] 
+-- [Çalışması İstenen Kodlar]
 ```
+
 **Not:** INSTEAD OF yapısı DDL Triggerlarda kullanılmaz.
 
-**Not:** DDL Triggerlara ilgili veritabanının Programmability -> Databese Triggers klasöründen ulaşabilirsiniz.
+**Not:** DDL Triggerlara ilgili veritabanının Programmability -> Database Triggers klasöründen ulaşabilirsiniz.
 
 ```sql
 CREATE TABLE LogTablosu(
@@ -56,11 +58,11 @@ DROP TABLE LogTablosu
 
 Bir tabloda insert, update ve delete işlemleri gerçekleştirildiğinde devreye giren yapılardır. Bu işlemler sonucunda veya sürecinde devreye girerler.
 
-Inserted Table: Eğer bir tabloda insert işlemi yapılıyor ise arka planda işlemler, ilk önce RAM'de oluşturulan inserted isimli bir tablo üzerinde yapılır. Eğer işlemde bir problem yoksa inserted tablosundaki veriler fiziksel tabloya Insert edilir. İşlem bittiği zaman RAM'de oluşturulan bu inserted tablosu silinir. Bu anlatılan insert komutunun çalışma prensibidir.
+Inserted Table: Eğer bir tabloda insert işlemi yapılıyor ise arka planda işlemler, ilk önce RAM'de oluşturulan inserted isimli bir tablo üzerinde yapılır. Eğer işlemde bir problem yoksa inserted tablosundaki veriler fiziksel tabloya Insert edilir. İşlem bittiği zaman RAM'de oluşturulan bu inserted tablosu silinir. Bu anlatılan, insert komutunun çalışma prensibidir.
 
-Deleted Table: Eğer bir tabloda delete işlemi yapılıyor ise arka planda işlemler, ilk önce RAM'de oluşturulan deleted isimli bir tablo üzerinde yapılır. Eğer işlemde bir problem yoksa deleted tablosundaki veriler fiziksel tablodan silinir. İşlem bittiği zaman RAM'de oluşturulan bu deleted tablosu silinir. Bu anlatılan delete komutunun çalışma prensibidir.
+Deleted Table: Eğer bir tabloda delete işlemi yapılıyor ise arka planda işlemler, ilk önce RAM'de oluşturulan deleted isimli bir tablo üzerinde yapılır. Eğer işlemde bir problem yoksa deleted tablosundaki veriler fiziksel tablodan silinir. İşlem bittiği zaman RAM'de oluşturulan bu deleted tablosu silinir. Bu anlatılan, delete komutunun çalışma prensibidir.
 
-**Not:** Eğer bir tabloda update işlemi yapılıyor ise RAM'de updated isimli bir tablo OLUŞTURULMAZ!SQL Server'da ki update mantığı önce silme(Delete), sonra eklemedir(Insert). Eğer bir tabloda update işlemi yapılıyor ise arka planda, RAM'de hem deleted hem de inserted tabloları oluşturulur ve işlemler bunlar üzerinden yapılır.
+**Not:** Eğer bir tabloda update işlemi yapılıyor ise RAM'de updated isimli bir tablo OLUŞTURULMAZ! SQL Server'da ki update mantığı önce silme(Delete), sonra eklemedir(Insert). Eğer bir tabloda update işlemi yapılıyor ise arka planda, RAM'de hem deleted hem de inserted tabloları oluşturulur ve işlemler bunlar üzerinden yapılır.
 
 **Not:** Update işlemi yaparken; güncellenen kaydın orjinali deleted tablosunda, güncellendikten sonraki hali ise Inserted tablosunda bulunmaktadır.
 
@@ -90,7 +92,7 @@ INSERT Personeller(Adi, SoyAdi) VALUES ('Alperen','Bektaşoğlu')
 -- Örnek 2
 CREATE TRIGGER OrnekTrıgger_2
 ON Personeller
-AFTER UPDATE 
+AFTER UPDATE
 AS
 PRINT 'Güncelleme işlemi başarılı...'
 INSERT Kategoriler(KategoriAdi) VALUES ('Yeni Ürün')
@@ -100,7 +102,7 @@ UPDATE Personeller SET Adi = 'Gökçen' WHERE SoyAdi = 'Bektaşoğlu'
 -- Örnek 3
 CREATE TRIGGER OrnekTrıgger_3
 ON Personeller
-AFTER DELETE 
+AFTER DELETE
 AS
 PRINT 'Silme işlemi başarılı...'
 SELECT * FROM Personeller
@@ -207,7 +209,7 @@ ENABLE TRIGGER OrnekTrıgger_1 ON Personeller
 ENABLE TRIGGER Tablo_Silme_Engelleme_Trigger_1 ON DATABASE
 ```
 
-## Alter Komutu İle DDL Trigger Güncelleme 
+## Alter Komutu İle DDL Trigger Güncelleme
 
 ```sql
 CREATE TABLE LogTablosu(
@@ -235,10 +237,10 @@ DROP TABLE LogTablosu
 -- ON [ Tablo Adı ]
 -- AFTER/FOR/INSTEAD OF INSERT, UPDATE, DELETE
 -- AS
--- [Çalışması İstenen Kodlar] 
+-- [Çalışması İstenen Kodlar]
 ```
 
-## Trigger Kaldırma
+## Trigger Silme
 
 ```sql
 DROP TRIGGER Tablo_Silme_Engelleme_Trigger_1

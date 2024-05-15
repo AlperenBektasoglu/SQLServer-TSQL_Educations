@@ -145,3 +145,40 @@ SELECT TOP 6 WITH TIES * FROM [Satis Detaylari] ORDER BY SatisID
 SELECT KategoriID, TedarikciID, COUNT(*) FROM Urunler WHERE KategoriID < 5
 GROUP BY KategoriID, TedarikciID HAVING COUNT(*) < 4 ORDER BY KategoriID DESC
 ```
+
+## Partition By Kullanımı
+
+OVER() fonksiyonu ile iç içe, gruplama yapabilmek için PARTITION BY fonksiyonunu kullanılır. PARTITION BY() ile GROUP BY arasındaki en temel fark, PARTITION BY sonuç olarak gösterilen satırların sayısını azaltmaz yani her satırdaki işlemi gruplanmış bir şekilde ayrı ayrı gösterir. GROUP BY hatırlandığı üzere satırlar üzerinde genel bir işlem yapar ve sonucu o şekilde gösterir dolayısı ile sonuç olarak gösterilen satır sayısı azalabilir. PARTITION BY, GROUP BY ile aynı mantıkta çalışır ama tablodaki her satıra bir kolon ekleyerek gruplama sonucunu o kolonda gösterir.
+
+```sql
+-- Örnek 1: Aşağıdaki sorgu sonucu gelen satır sayısı, WEBOFFERS tablosundaki kayıt sayısı ile aynıdır.
+SELECT
+BRAND,
+RAISEPRICE,
+MIN(RAISEPRICE) OVER(PARTITION BY BRAND) AS MIN_FIYAT,
+ROUND(AVG(RAISEPRICE) OVER(PARTITION BY BRAND),0) ORTALAMA_FIYAT,
+MAX(RAISEPRICE) OVER(PARTITION BY BRAND) MAX_FIYAT
+FROM WEBOFFERS
+
+-- Örnek 2
+SELECT ID,
+BRAND,
+YEAR_,
+COUNT(ID) OVER(PARTITION BY YEAR_) YIL_ADET,
+AVG(PRICE) OVER(PARTITION BY BRAND) ORTALAMA_FIYAT
+FROM WEBOFFERS
+```
+
+Birden fazla sütuna göre PARTITION BY içinde gruplama yapmak mümkündür.
+
+```sql
+SELECT ID,
+BRAND,
+CASETYPE,
+KM,
+AVG(KM) OVER (PARTITION BY BRAND,CASETYPE) AS ORTALAMA_KM
+FROM WEBOFFERS
+ORDER BY ORTALAMA_KM DESC
+```
+
+Detaylı incelemek için <a href="https://mehmetali-kaya.medium.com/sql-i̇le-window-functions-over-ve-partition-by-eafe43a9162e"> tıklayın </a>

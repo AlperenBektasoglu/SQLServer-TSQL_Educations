@@ -1,6 +1,6 @@
 # Transaction Yapısı
 
-Belirli bir grup işlemin arka arkaya gerçekleşmesine rağmen, işlemlerin seri ya da toplu halde değerlendirilip hepsinin düzgün bir şekilde ele alınması gerektiğinde kullanılır. Transaction içinde yer alan tüm işlemler sorunsuz bir şekilde çalışmak zorunda, aksi halde transaction içindeki işlemlerin tek bi adımı dahi başarısız olsa, tüm yapılan işlemler yapılmamış gibi eski haline döner. 
+Belirli bir grup işlemin arka arkaya gerçekleşmesine rağmen, işlemlerin seri ya da toplu halde değerlendirilip hepsinin düzgün bir şekilde ele alınması gerektiğinde kullanılır. Transaction içinde yer alan tüm işlemler sorunsuz bir şekilde çalışmak zorunda, aksi halde transaction içindeki işlemlerin tek bi adımı dahi başarısız olsa, tüm yapılan işlemler yapılmamış gibi eski haline döner.
 
 BEGIN TRANSACTION / BEGIN TRAN : Transaction işlemini başlatır.
 
@@ -9,8 +9,6 @@ ROLLBACK / ROLLBACK TRANSACTION / ROLLBACK TRAN : İşlemler geri alır ve iptal
 COMMIT / COMMIT TRANSACTION / COMMIT TRAN : İşlemleri kaydeder.
 
 **Not:** Rollback ve commit işlemi gerçekleştiği zaman transaction işlemi sonlanır.
-
-**Not:** Komutlar parça parça çalıştırılabilir. (1. satırdaki kod + 2. satırdaki kod)
 
 **Not:** Biz transaction yapısını kullanmasak bile normalde veritabanında yapılan her işlem(Insert, Update, Delete, ...) BEGIN TRAN ile başlayıp, COMMIT TRAN ile biter.
 
@@ -23,7 +21,7 @@ BEGIN TRANSACTION [ Transaction Adı ] -- Transaction'a isim vermek zorunlu değ
 ```sql
 USE Northwind
 
--- Örnek 1 
+-- Örnek 1
 BEGIN TRANSACTION
 SELECT * FROM Personeller WHERE Unvan = 'Sales Manager'
 UPDATE Personeller SET Unvan = 'Information System' WHERE Unvan = 'Sales Manager'
@@ -51,7 +49,7 @@ SELECT * FROM Personeller
 BEGIN TRAN Kontrol
 DECLARE @i INT
 DELETE FROM Personeller WHERE PersonelID > 9
-SET @i = @@ROWCOUNT -- Etkilenen satır sayısını getirir.
+SET @i = @@ROWCOUNT -- @@ROWCOUNT: Etkilenen satır sayısını getirir.
 IF @i = 1
 	BEGIN
 	PRINT 'Kayıt silindi.'
@@ -66,7 +64,7 @@ ELSE
 
 ## WAITFOR Kullanımı
 
-Sorguyu istenilen süreden sonra yada istenilen saatte çalıştıran komuttur. 
+Sorguyu istenilen süreden sonra yada istenilen saatte çalıştıran komuttur.
 
 ```sql
 -- Örnek 1

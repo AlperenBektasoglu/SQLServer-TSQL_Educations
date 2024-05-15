@@ -1,16 +1,15 @@
-
 # Stored Procedures (SP)
 
-Veritabanı programlamada belirli işlemleri yerine getirmek için yazılıp derlenmiş ve gerektiğinde defalarca çağrılabilen kod bloklarıdır. Her ihtiyaç duyulduğunda çağrılabilirler. Ayrıca bir sp, başka bir sp tarafından da çağrılabilir.
+Veritabanı programlamada belirli işlemleri yerine getirmek için yazılıp derlenmiş ve gerektiğinde defalarca çağrılabilen kod bloklarıdır. Her ihtiyaç duyulduğunda çağrılabilirler. Ayrıca bir sp, başka bir sp tarafından da çağrılabilir. Store Procedure'ler parametre alıp, çıktı üretebilirler.
 
 Stored Procedure Çeşitleri:
-1. System Stored Procedures: Genellikle «sp_» öneki başlayan ve master veritabanı içerisinde tutulan kod bloklarıdır.
+
+1. System Stored Procedures: Genellikle «sp\_» öneki başlayan ve master veritabanı içerisinde tutulan kod bloklarıdır.
 2. User Defined Stored Procedures: Kullanıcılar tarafından yazılmış olan kod bloklarıdır.
-3. Store Procedure'ler parametre alıp, çıktı üretebilirler.
 
-**Not:** Bir sp, CREATE DEFAULT, CREATE PROC, CREATE RULE, CREATE TRIGGER VE CREATE VIEW gibi kodları içeremez. Ancak view, fonksiyon, procedure, tablo gibi veritabanı sisteminde ki nesnelerden veri alabilir yada aktarabilir. 
+**Not:** Bir sp, CREATE DEFAULT, CREATE PROC, CREATE RULE, CREATE TRIGGER VE CREATE VIEW gibi kodları içeremez. Ancak view, fonksiyon, procedure, tablo gibi veritabanı sisteminde ki nesnelerden veri alabilir yada aktarabilir.
 
-**Not:** BGIN-END bloklarını kullanmak isteğe bağlıdır.
+**Not:** BEGIN-END bloklarını kullanmak isteğe bağlıdır.
 
 ## Stored Procedure Oluşturma
 
@@ -34,10 +33,6 @@ SET @sonuc = @sayi1 + @sayi2
 
 DECLARE @x INT
 EXEC OrnekProcedure_2 33, 5, @x OUTPUT
-PRINT @x
-
-DECLARE @x INT
-EXEC OrnekProcedure_Topla 33, 5, @x OUTPUT
 PRINT @x
 
 -- Örnek 3
@@ -99,7 +94,7 @@ SET @sonuc = @sayi1 + @sayi2 + @sayi3
 PRINT 'Sonuç: ' + CAST(@sonuc AS VARCHAR(9))
 
 DECLARE @x INT
-EXEC OrnekProcedure_Topla 33, 5, 50, @x OUTPUT
+EXEC OrnekProcedure_3 33, 5, 50, @x OUTPUT
 PRINT '@x değişkenindeki değer: ' + CAST(@x AS VARCHAR(9))
 ```
 
@@ -144,7 +139,7 @@ SELECT * FROM Personeller WHERE Sehir = 'London'
 
 Sql Server‘da her sorgu çalıştırdığımızda; sorgu sonucu, etkilenen satır sayısı ile birlikte sorguyu çalıştıran uygulamaya geri gönderilir. Bazı durumlarda bu bilgi işimize yarasa bile genellikle kullanmayız. Sql Server‘ın bu bilgiyi hesaplamasını ve uygulamaya geri göndermesini engelleyerek, çok ufakta olsa performastan kazanç sağlayabiliriz. Özetle bu komut ile Sql Server sadece ilgili sorgu için, etkilenen satır sayısını hesaplama işlemini yapmayacaktır. Yapmamız gereken, sorgudan önce aşağıdaki komutu çalıştırmak olacaktır;
 
-SET NOCOUNT ON 
+SET NOCOUNT ON
 
 ```sql
 -- Örnek 1
@@ -187,4 +182,3 @@ EXEC OrnekProcedure_PersonelGetir_1
 DROP PROC OrnekProcedure_1
 DROP PROCEDURE OrnekProcedure_1
 ```
-

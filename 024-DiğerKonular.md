@@ -1,22 +1,23 @@
 # Diğer Konular
 
-## Identity Kullanımı
+## IDENTITY Kullanımı
 
 T-SQL’de identity kolonlarla çalışırken yeni üretilen değerleri elde etmemiz gerekebilir. İşte bu ihtiyaca dönük @@IDENTITY komutu yahut SCOPE_IDENTITY() ve IDENT_CURRENT() fonksiyonları kullanılabilir.
+
 1. @@IDENTITY: Açılmış olan bağlantıda(connection) tablo yahut sorgunun çalıştığı scope’a bakmaksızın son üretilen identity değerini vermektedir. Dikkat! Trigger kullanılan sorgularda yanlış sonuç alma ihtimalinden dolayı kullanılması tavsiye edilmez.
 2. SCOPE_IDENTITY: Açılmış olan bağlantıda(connection) ve sorgunun çalıştığı scope’ta son üretilen identity değerini döndürür. Dikkat! Trigger kullanılan sorgularda @@IDENTITY yerine bu fonksiyonun kullanılması tavsiye edilir.
 3. IDENT_CURRENT(TabloAdi): Bağlantı ve sorgunun çalıştırıldığı scope’a bakmaksızın parametre olarak verilen tabloda üretilen sonuncu identity değerini döndürür.
 
 ```sql
 CREATE DATABASE ORNEKVERITABANI
- 
+
 CREATE TABLE ORNEKTABLO1
 (
   ID INT PRIMARY KEY IDENTITY,
   KOLON1 NVARCHAR(MAX),
   KOLON2 NVARCHAR(MAX)
 )
- 
+
 CREATE TABLE ORNEKTABLO2
 (
   ID INT PRIMARY KEY IDENTITY,
@@ -25,7 +26,7 @@ CREATE TABLE ORNEKTABLO2
 )
 
 USE ORNEKVERITABANI
- 
+
 CREATE TRIGGER KONTROL
 ON ORNEKTABLO1 FOR INSERT
 AS
@@ -39,7 +40,7 @@ INSERT ORNEKTABLO2 VALUES('5','5')
 
 INSERT ORNEKTABLO1 VALUES('6','6')
 
-SELECT @@IDENTITY 
+SELECT @@IDENTITY
 UNION ALL
 SELECT SCOPE_IDENTITY()
 UNION ALL
@@ -51,12 +52,12 @@ SELECT IDENT_CURRENT('ORNEKTABLO1')
 -- 1
 ```
 
-## @@Rowcount Kullanımı
+## ROWCOUNT Kullanımı
 
-DML (Data Manipulation Language – select, insert, update, delete) işleminden etkilenen satirlarin toplam sayısını döndürür.
+DML (Data Manipulation Language – select, insert, update, delete) işleminden etkilenen satırların toplam sayısını döndürür.
 
 ```sql
-USE Nortwind
+USE Northwind
 SELECT * FROM Personeller
 SELECT @@ROWCOUNT
 ```
@@ -103,9 +104,15 @@ SELECT ROW_NUMBER() OVER(ORDER BY Adi) Indexer, * FROM Personeller ORDER BY Pers
 ```sql
 USE Nortwind
 SELECT ROW_NUMBER() OVER(PARTITION BY MusteriId ORDER BY OdemeTarihi) Indexer, * FROM Satislar
-```
 
-Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/transact-sql-row_number-fonksiyonu/"> tıklayın </a>
+-- Çıktı:
+-- Indexer - MusteriId
+-- 1	ALFKI
+-- 2	ALFKI
+-- 3	ALFKI
+-- 1	ANATR
+-- 2	ANATR
+```
 
 ## Ansi_Nulls Komutu
 
@@ -115,9 +122,7 @@ Ansi_Nulls komutu, where şartlarında kontrol edilen eşitlik yahut eşit deği
 SET ANSI_NULLS [ ON | OFF ]
 ```
 
-Ansi_Nulls özelliği "On" değerini aldığı vakit, eşitlik yahut eşit değillik şartlarında null değerlere karşı false sonucu döndürülür. Bunun sebebi sorgu aramalarına null değerlerin dahil edilmemesinden kaynaklanmaktadır. Bilakis "Off" değeri aldığı vakit null değerler sorgu sonucuna dahil edileceğinden dolayı şartın durumuna göre gerekli true/false değerini dönecektir.
-
-Ansi_Nulls özelliği varsayılan olarak "On" değerine sahiptir.
+Ansi_Nulls özelliği "On" değerini aldığı vakit, eşitlik yahut eşit değillik şartlarında null değerlere karşı false sonucu döndürülür. Bunun sebebi sorgu aramalarına null değerlerin dahil edilmemesinden kaynaklanmaktadır. Bilakis "Off" değeri aldığı vakit null değerler sorgu sonucuna dahil edileceğinden dolayı şartın durumuna göre gerekli true/false değerini dönecektir. Ansi_Nulls özelliği varsayılan olarak "On" değerine sahiptir.
 
 ## Dynamic Data Masking
 
@@ -127,12 +132,13 @@ Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/sql-server-2
 
 ## Temporal Tables
 
-Temporal Tables özelliği, Zamansal Tablolar diye nitelendirebileceğimiz bir SQL Server 2016 yeniliğidir. Bu özelliğin özeti, veritabanında yapılan Data Manipulation Language(DML) işlemlerini raporlamamızı sağlayan bir yapıdır. Biz her ne kadar Temporal Tables olarak hitap edecek olsakta, internet yahut başka kaynaklarda “System-Versioned Table” şeklinde bir ifadede edilebilmektedir.  şuana kadar yaptığımız raporlama ve takip sistemlerinde izlediğimiz adımlar oluşturduğumuz tablolara özel “log” tabloları yahut dosyaları oluşturmaktan ibaretti. Yapılan her işlemi ya log tablolarına sorgular eşliğinde kayıt eder yahut trigger‘lar aracılığıyla takip sürecini gerçekleştirirdik. Temporal Tables özelliği ile bu süreci hem teknik olarak daha kullanışlı, hemde pratikte daha az maliyetli bir şekilde gerçekleştiriyor olacağız.
+Bu özelliğin özeti, veritabanında yapılan Data Manipulation Language(DML) işlemlerini raporlamamızı sağlayan bir yapıdır. Şuana kadar yaptığımız raporlama ve takip sistemlerinde izlediğimiz adımlar oluşturduğumuz tablolara özel “log” tabloları yahut dosyaları oluşturmaktan ibaretti. Yapılan her işlemi ya log tablolarına sorgular eşliğinde kayıt eder yahut trigger‘lar aracılığıyla takip sürecini gerçekleştirirdik. Temporal Tables özelliği ile bu süreci hem teknik olarak daha kullanışlı, hemde pratikte daha az maliyetli bir şekilde gerçekleştiriyor olacağız.
 
 Temporal Tables özelliğinin bize sağlayacağı artıları kısaca maddelersek eğer;
-* Tablomuzda bulunan kayıtların zaman içindeki değişikliklerinin(update) izlenmesi ve takip edilmesi,
-* Tablo üzerinde yanlışlıkla yapılan delete ve update sorgularının geri getirilmesi,
-* Bir verinin belirli bir zamana yahut zaman aralığına odaklı izlenebilmesi.
+
+- Tablomuzda bulunan kayıtların zaman içindeki değişikliklerinin(update) izlenmesi ve takip edilmesi,
+- Tablo üzerinde yanlışlıkla yapılan delete ve update sorgularının geri getirilmesi,
+- Bir verinin belirli bir zamana yahut zaman aralığına odaklı izlenebilmesi.
 
 Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/sql-server-2016-temporal-tables/"> tıklayın </a>
 
@@ -144,13 +150,16 @@ Detaylı incelemek için <a href="https://www.gencayyildiz.com/blog/sql-server-2
 
 ## Execution Plan Nedir?
 
-Yapılan sorgulamaların çoğunluğunu veri okuma işleminin oluşturduğunu düşündüğümüzde, son kullanıcıya istenilen verilerin en kısa sürede iletilmesi oldukça önemlidir. İşte bu noktada SQL Server gelen sorguyu derler ve hangi tabloya gitmesi gerektiği, bu tabloya giderken (varsa) hangi indexi kullanacağı, hangi verileri alacağı ve bunları yaparken istatistiklerden yararlanmak gibi birçok detayı değerlendirir ve plan çıkarır. Arka planda yapmış olduğu bu değerlendirmeler sonrasında, sorgu sonucunu getirirken en az maliyetli planın hangisi olduğuna karar verir. Sorguyu yürütürken kullanacağı bu plana Execution Plan denir. Execution Plan bir kere belirlendikten sonra cache’e alınır ve bir sorgu geldiğinde cachede tutulan planları tarayarak aynı ya da benzer sorgu mevcutsa o execution plan üzerinden sonuçları döndürür.
+Yapılan sorguların çoğunluğunu veri okuma işleminin oluşturduğunu düşündüğümüzde, son kullanıcıya istenilen verilerin en kısa sürede iletilmesi oldukça önemlidir. İşte bu noktada SQL Server gelen sorguyu derler ve hangi tabloya gitmesi gerektiği, bu tabloya giderken (varsa) hangi indexi kullanacağı, hangi verileri alacağı ve bunları yaparken istatistiklerden yararlanmak gibi birçok detayı değerlendirir ve plan çıkarır. Arka planda yapmış olduğu bu değerlendirmeler sonrasında, sorgu sonucunu getirirken en az maliyetli planın hangisi olduğuna karar verir. Sorguyu yürütürken kullanacağı bu plana Execution Plan denir. Execution Plan bir kere belirlendikten sonra cache’e alınır ve bir sorgu geldiğinde cachede tutulan planları tarayarak aynı ya da benzer sorgu mevcutsa o execution plan üzerinden sonuçları döndürür.
 
 **Not:** Execution Plan okurken sırası ile yukarıdan aşağıya ve sağdan sola doğru takip edilir. Operatörler arası geçiş sırasında zaten oklar yer almaktadır. Bunları takip etmek amacıyla kullanabileceğiniz gibi diğer operatöre geçiş yaparken aktarılan verinin büyüklüğüyle ilgili bilgi sahibi olmak için de kullanabilirsiniz. Operatörün üzerine geldiğinizde beliren tooltip kısmından da bu verilerin boyutlarını görebilirsiniz.
 
 Detaylı incelemek için <a href="https://www.sqlekibi.com/sql-server/sql-server-execution-plan-nedir.html/"> tıklayın </a>
 
 ## Sql Bulk Insert
+
+Verileri bir metin dosyasından, veritabanında ki bir tabloya toplu ekleme işlemine bulk insert denir.
+
 Detaylı incelemek için <a href="https://www.youtube.com/watch?v=7nIppLEf5bQ&list=PLQVXoXFVVtp2RjHt5teaBOLUcKbq2Ilbo&index=39"> tıklayın </a>
 
 ## DCL (Data Control Language - Veri Kontrol Dili)
